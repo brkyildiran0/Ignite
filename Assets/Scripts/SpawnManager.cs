@@ -4,20 +4,45 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+     private Vector3 Min;
+     private  Vector3 Max;
+     private  float _xAxis;
+     private  float _yAxis;
+     private Vector3 _randomPosition;
+
     public float spawnRate = 3f;
+    public float hordeEnemyCount = 3f;
     public PooledObject projectile;
 
-
-    void Start()
+    private void Start()
     {
-        StartCoroutine(SpawnUnarmedEnemy());
+         SetRanges();
+         StartCoroutine(SpawnUnarmedEnemy());
     }
+
+     private void Update()
+     {
+
+     }
+
+     private void SetRanges()
+     {
+         Min = new Vector3(-90, -50, 0);
+         Max = new Vector3(90, 50, 0);
+     }
 
     IEnumerator SpawnUnarmedEnemy()
     {
         while (true)
         {
-            PooledObject instance = Pool.Instance.Spawn(projectile, new Vector3(1.2f, 1.2f, 0f), Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)));
+            for (int i = 0; i < hordeEnemyCount; i++)
+            {
+                _xAxis = UnityEngine.Random.Range(Min.x, Max.x);
+                _yAxis = UnityEngine.Random.Range(Min.y, Max.y);
+                _randomPosition = new Vector3(_xAxis, _yAxis, 0f);
+                PooledObject instance = Pool.Instance.Spawn(projectile, _randomPosition, Quaternion.identity);
+            }
+            hordeEnemyCount++;
             yield return new WaitForSeconds(spawnRate);
         }
     }
