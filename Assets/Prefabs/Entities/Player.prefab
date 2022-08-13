@@ -48,11 +48,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43c37268145e3534299a169b91f92734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHP: 1
   runSpeed: 40
   floatingSpeed: 1.25
   floatingAmount: 1
   playerBodySprite: {fileID: 4328345701399715288}
+  animator: {fileID: 895955542064610029}
+  currentHP: 1
 --- !u!50 &3143485023522147881
 Rigidbody2D:
   serializedVersion: 4

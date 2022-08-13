@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8206175863491093263}
   - component: {fileID: 8206175863491093262}
   - component: {fileID: -338460868726085651}
-  - component: {fileID: 2435495874647461934}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -124,7 +123,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: -0.75}
-  m_ConnectedAnchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: -0.25}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 200
@@ -159,15 +158,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &2435495874647461934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8206175863491093260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78b7346b09119024094db8914b2e4210, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

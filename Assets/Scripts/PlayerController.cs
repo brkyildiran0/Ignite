@@ -9,10 +9,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float floatingSpeed = 2f;
     [SerializeField] float floatingAmount = 1f;
     [SerializeField] Transform playerBodySprite;
+    [SerializeField] Animator animator;
 
     public int currentHP = 0;
-
-    private Animator animator;
+    
     private Rigidbody2D body;
 
     private float horizontal;
@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        animator = GetComponentInChildren<Animator>();
         body = GetComponent<Rigidbody2D>();
         GainHP();
     }
