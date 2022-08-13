@@ -29,7 +29,7 @@ public class SpawnManager : MonoBehaviour
     private float randomYaxis_4;
     private Vector3 randomSpawnPosition_4;
 
-    public float spawnRate = 5f;
+    public static float spawnRate = 5f;
     public int hordePopulation = 1;
 
     //Controls how many waves are necessary to increment the spawned enemies at once for each spawn position
@@ -54,7 +54,7 @@ public class SpawnManager : MonoBehaviour
 
             yield return new WaitForSecondsRealtime(spawnRate);
 
-            SpawnAtDeterminedLocations();
+            //SpawnAtDeterminedLocations();
             ManageHordeGrowth();
         }
     }
@@ -85,19 +85,25 @@ public class SpawnManager : MonoBehaviour
             randomYaxis_4 = UnityEngine.Random.Range(bottomLeftBorder_4.y, topRightBorder_4.y);
             randomSpawnPosition_4 = new Vector3(randomXaxis_4, randomYaxis_4, 0f);
             PooledObject instance_4 = Pool.Instance.Spawn(spawnMarker, randomSpawnPosition_4, Quaternion.identity);
+
+
+            PooledObject enemy_1 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_1, Quaternion.identity);
+            PooledObject enemy_2 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_2, Quaternion.identity);
+            PooledObject enemy_3 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_3, Quaternion.identity);
+            PooledObject enemy_4 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_4, Quaternion.identity);
         }
     }
 
-    private void SpawnAtDeterminedLocations()
-    {
-        for (int j = 0; j < hordePopulation; j++)
-        {
-            PooledObject instance_1 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_1, Quaternion.identity);
-            PooledObject instance_2 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_2, Quaternion.identity);
-            PooledObject instance_3 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_3, Quaternion.identity);
-            PooledObject instance_4 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_4, Quaternion.identity);
-        }
-    }
+    //private void SpawnAtDeterminedLocations()
+    //{
+    //    for (int j = 0; j < hordePopulation; j++)
+    //    {
+    //        PooledObject instance_1 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_1, Quaternion.identity);
+    //        PooledObject instance_2 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_2, Quaternion.identity);
+    //        PooledObject instance_3 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_3, Quaternion.identity);
+    //        PooledObject instance_4 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_4, Quaternion.identity);
+    //    }
+    //}
 
     private void SetSpawnBoundaries()
     {

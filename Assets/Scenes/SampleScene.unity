@@ -314,7 +314,7 @@ RectTransform:
   - {fileID: 721098250}
   - {fileID: 1269279945}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -892,7 +892,7 @@ Transform:
   m_Children:
   - {fileID: 651998564}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1215936000
 GameObject:
@@ -938,7 +938,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f92020307877e4a9b5df1e60217078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRate: 5
   hordePopulation: 1
   hordeGrowLimiter: 3
   basicEnemy: {fileID: 1116771144682154912, guid: 51e8021e5f55b3140bfabfa78f3e9ada, type: 3}
@@ -1063,7 +1062,7 @@ Transform:
   - {fileID: 1262730329}
   - {fileID: 1010570285}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1393477950 stripped
 Transform:

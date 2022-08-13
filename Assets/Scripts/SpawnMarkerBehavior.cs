@@ -4,18 +4,28 @@ using UnityEngine;
 
 public class SpawnMarkerBehavior : MonoBehaviour
 {
-    private ParticleSystem spawnParticle;
+    private Animator spawnParticleAnimator; 
 
     void Awake()
     {
-         spawnParticle = GetComponent<ParticleSystem>();
+        spawnParticleAnimator = GetComponent<Animator>();
+    }
+    void Start()
+    {
+        spawnParticleAnimator = GetComponent<Animator>();
     }
 
-    void Update()
+    void OnEnable()
     {
-        if (!spawnParticle.IsAlive())
-        {
-            GetComponent<PooledObject>().Finish();
-        }
+        spawnParticleAnimator.Play("EnemySpawnMarker");
+        StartCoroutine(Disabler(SpawnManager.spawnRate));
+
+    }
+
+    IEnumerator Disabler(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+
+        GetComponent<PooledObject>().Finish();
     }
 }

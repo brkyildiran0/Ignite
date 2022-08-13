@@ -12,11 +12,13 @@ public class EnemyBehavior : MonoBehaviour
     private Transform player;
     private SpriteRenderer spriteRenderer;
     private int spriteRandomizer = 0;
+    private int mirrorRandomizer = 0;
 
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         spriteRandomizer = Random.Range(0, 3);
+        mirrorRandomizer = Random.Range(0, 2);
     }
 
     private void OnEnable()
@@ -38,6 +40,16 @@ public class EnemyBehavior : MonoBehaviour
                 break;
             case 2:
                 spriteRenderer.sprite = enemySprite3;
+                break;
+        }
+
+        switch (mirrorRandomizer)
+        {
+            case 0:
+                spriteRenderer.flipX = true;
+                break;
+            case 1:
+                spriteRenderer.flipX = false;
                 break;
         }
     }
