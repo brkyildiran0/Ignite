@@ -19,11 +19,14 @@ public class EnemyBehavior : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        GetComponent<PooledObject>().Finish();    
+        if (collision.tag == "Weapon")
+        {
+            GetComponent<PooledObject>().Finish();
+        }
+
+        if (collision.tag == "Player")
+        {
+            //TODO, game over
+        }
     }
-
-
-    //1. DONE -- Follow player
-    //2. When reached close proximity, trigger attack
-    //3. Repeat
 }
