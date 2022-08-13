@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4548391919626134688}
   - component: {fileID: 4548391919626134689}
   - component: {fileID: 1116771144682154912}
+  - component: {fileID: -1734353687975055647}
   m_Layer: 0
   m_Name: Unarmed Enemy
   m_TagString: Untagged
@@ -99,3 +100,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   behaviour: {fileID: 0}
+--- !u!114 &-1734353687975055647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4548391919626134690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c009d14398542547b443b77b5927174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  enemyMovementSpeed: 1

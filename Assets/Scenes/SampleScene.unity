@@ -252,7 +252,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnRate: 3
-  hordeEnemyCount: 3
+  hordePopulation: 3
+  hordeGrowObserver: 0
   projectile: {fileID: 1116771144682154912, guid: 51e8021e5f55b3140bfabfa78f3e9ada, type: 3}
 --- !u!1 &1226536396
 GameObject:
@@ -324,9 +325,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
+  m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 100
+  m_AngularDrag: 25
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -538,6 +539,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3143485023522147877, guid: 072534c766e550640bb3c79453224fbd, type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3143485023522147877, guid: 072534c766e550640bb3c79453224fbd, type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3143485023522147879, guid: 072534c766e550640bb3c79453224fbd, type: 3}
