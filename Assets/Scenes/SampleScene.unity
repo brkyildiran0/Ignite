@@ -251,9 +251,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f92020307877e4a9b5df1e60217078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRate: 3
-  hordePopulation: 3
-  hordeGrowObserver: 0
+  spawnRate: 5
+  hordePopulation: 1
+  hordeGrowLimiter: 3
   projectile: {fileID: 1116771144682154912, guid: 51e8021e5f55b3140bfabfa78f3e9ada, type: 3}
 --- !u!1 &1721690439
 GameObject:
@@ -401,6 +401,10 @@ PrefabInstance:
     - target: {fileID: 3143485023522147877, guid: 072534c766e550640bb3c79453224fbd, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3143485023522147878, guid: 072534c766e550640bb3c79453224fbd, type: 3}
+      propertyPath: runSpeed
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3143485023522147879, guid: 072534c766e550640bb3c79453224fbd, type: 3}
       propertyPath: m_RootOrder
