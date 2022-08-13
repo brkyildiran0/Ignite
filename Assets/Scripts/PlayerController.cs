@@ -6,17 +6,21 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float runSpeed = 10.0f;
+    [SerializeField] float floatingSpeed = 2f;
+    [SerializeField] float floatingAmount = 1f;
+    [SerializeField] Transform playerBodySprite;
+    [SerializeField] Transform topFloatingPoint;
+    [SerializeField] Transform bottomFloatingPoint;
 
-    Rigidbody2D body;
+    private Animator animator;
+    private Rigidbody2D body;
 
-    float horizontal;
-    float vertical;
-
-    Animator animator;
+    private float horizontal;
+    private float vertical;
 
     void Awake()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         body = GetComponent<Rigidbody2D>();
     }
 
@@ -33,6 +37,9 @@ public class PlayerController : MonoBehaviour
 
     private void HandleAnimation()
     {
+        float floatingLimiter = Mathf.PingPong(Time.time * floatingSpeed, floatingAmount);
+        playerBodySprite.localPosition = new Vector3(0, floatingLimiter, 0);
+
         if (Input.GetKey(KeyCode.A))
         {
             animator.Play("PlayerLeft");
