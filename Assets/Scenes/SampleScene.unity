@@ -504,24 +504,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8206175863491093262, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
-      propertyPath: m_UseMotor
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8206175863491093262, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
       propertyPath: m_ConnectedRigidBody
       value: 
       objectReference: {fileID: 1915608488}
-    - target: {fileID: 8206175863491093263, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8206175863491093263, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
-      propertyPath: m_LinearDrag
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8206175863491093263, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
-      propertyPath: m_AngularDrag
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
