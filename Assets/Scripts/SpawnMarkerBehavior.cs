@@ -11,7 +11,6 @@ public class SpawnMarkerBehavior : MonoBehaviour
          spawnParticle = GetComponent<ParticleSystem>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!spawnParticle.IsAlive())

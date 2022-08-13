@@ -9,8 +9,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float floatingSpeed = 2f;
     [SerializeField] float floatingAmount = 1f;
     [SerializeField] Transform playerBodySprite;
-    [SerializeField] Transform topFloatingPoint;
-    [SerializeField] Transform bottomFloatingPoint;
+
+    public int currentHP = 0;
 
     private Animator animator;
     private Rigidbody2D body;
@@ -22,12 +22,14 @@ public class PlayerController : MonoBehaviour
     {
         animator = GetComponentInChildren<Animator>();
         body = GetComponent<Rigidbody2D>();
+        GainHP();
     }
 
     void Update()
     {
         GetInput();
         HandleAnimation();
+        HPCheck();
     }
 
     void FixedUpdate()
@@ -67,5 +69,33 @@ public class PlayerController : MonoBehaviour
     {
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
+    }
+
+    private void HPCheck()
+    {
+        if (currentHP == 0)
+        {
+            //Death, press any button to trigger "revive" sequence
+            //Time.timeScale = 0.0001f;
+
+        }
+    }
+
+    private void GainHP()
+    {
+        if (currentHP < 3)
+        {
+            currentHP++;
+            HealthLanternManager.AddHP();
+        }
+    }
+
+    private void LoseHP()
+    {
+        if (currentHP > 0)
+        {
+            currentHP--;
+            HealthLanternManager.LoseHP();
+        }
     }
 }
