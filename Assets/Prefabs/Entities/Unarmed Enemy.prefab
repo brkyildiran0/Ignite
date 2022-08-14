@@ -118,6 +118,10 @@ MonoBehaviour:
   enemySprite1: {fileID: 21300000, guid: a597bd4340894c8439f77f67187e4c8c, type: 3}
   enemySprite2: {fileID: 21300000, guid: 986f74f39aa31664dac9442e54c102f5, type: 3}
   enemySprite3: {fileID: 21300000, guid: ef42be8791d007e4882dd501c7d387ae, type: 3}
+  cauldronEnemySprite: {fileID: 21300000, guid: 5f1314cd162e4304d9082c217a17f0f4, type: 3}
+  cauldronSpawnChancePercentage: 10
+  cauldronEnemyKnockbackForce: 450
+  swordKnockbackForce: 200
 --- !u!61 &1949990866106285366
 BoxCollider2D:
   m_ObjectHideFlags: 0
