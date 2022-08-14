@@ -31,6 +31,7 @@ public class EnemyBehavior : MonoBehaviour
     private bool isPowerup = false;
     private bool isCauldron = false;
     private bool rigidbodyExists = false;
+    private bool hasTriggeredDeathAnimation = false;
 
     void Awake()
     {
@@ -50,6 +51,7 @@ public class EnemyBehavior : MonoBehaviour
 
     private void OnEnable()
     {
+        hasTriggeredDeathAnimation = false;
         RandomizeSprite();
         StartCoroutine(MirrorSpriteRendererWithDelay());
     }
@@ -145,7 +147,13 @@ public class EnemyBehavior : MonoBehaviour
         //Normal Enemy
         if (collision.tag == "Weapon" && !isCauldron && !isPowerup)
         {
-            GetComponent<PooledObject>().Finish();
+            if (!hasTriggeredDeathAnimation)
+            {
+                PlayRandomDeathAnimation();
+                StartCoroutine(WaitUntilTheAnimationEndsThenDeactivate());
+            }
+            
+            
             WeaponManager.killCounter = WeaponManager.killCounter + killWeaponContribution;
             return;
         }
@@ -175,6 +183,20 @@ public class EnemyBehavior : MonoBehaviour
             WeaponManager.killCounter = WeaponManager.killCounter + killWeaponContribution;
             return;
         }
+    }
+
+    IEnumerator WaitUntilTheAnimationEndsThenDeactivate()
+    {
+        hasTriggeredDeathAnimation = true;
+        yield return new WaitForSeconds(0.18f);
+        GetComponent<PooledObject>().Finish();
+    }
+
+    private void PlayRandomDeathAnimation()
+    {
+        List<string> possibleDeathAnimations = new List<string>() { "EnemyDeath1", "EnemyDeath2", "EnemyDeath3", "EnemyDeath4" };
+        int randomizer = Random.Range(0, 4);
+        effectsChildAnimator.Play(possibleDeathAnimations[randomizer]);
     }
 
     private void RandomizeSprite()
