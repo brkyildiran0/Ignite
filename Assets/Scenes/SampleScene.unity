@@ -482,28 +482,64 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &616435816
+--- !u!1001 &574725175
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -338460868726085651, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
-      propertyPath: m_Size.x
+    - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
+      propertyPath: decayIncreaseAmount
+      value: 0.0002
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
+      propertyPath: protectionDecaySpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
+      propertyPath: firstUpgradeThreshold
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
+      propertyPath: thirdUpgradeThreshold
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
+      propertyPath: secondUpgradeThreshold
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
+      propertyPath: decayAmountPerFixedTime
+      value: 0.002
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
+      propertyPath: weaponProtectionDuration
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: -338460868726085651, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
-      propertyPath: m_Size.y
-      value: 18.5
+    - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
+      propertyPath: weaponDecaySpeedController
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: -338460868726085651, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
-      propertyPath: m_Offset.y
-      value: -13.5
+    - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
+      propertyPath: weaponDecayApplyFrequencyInSeconds
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1074023186274599247, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3
+    - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
+      propertyPath: weaponDecayPerSecondPercentage_LevelOne
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
+      propertyPath: weaponDecayPerSecondPercentage_LevelTwo
+      value: 12.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
+      propertyPath: weaponDecayPerSecondPercentage_LevelFour
+      value: 17.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
+      propertyPath: weaponDecayPerSecondPercentage_LevelThree
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8206175863491093260, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
       propertyPath: m_Name
@@ -519,7 +555,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8206175863491093261, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 25
+      value: 22.5
       objectReference: {fileID: 0}
     - target: {fileID: 8206175863491093261, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
       propertyPath: m_LocalPosition.z
@@ -559,7 +595,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8206175863491093262, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: -0.28461838
+      value: -1.5346184
       objectReference: {fileID: 0}
     - target: {fileID: 8206175863491093262, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
       propertyPath: m_ConnectedRigidBody

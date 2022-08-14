@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7364698427665310709}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.17, z: 0}
+  m_LocalPosition: {x: 0, y: 2.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -116,7 +116,8 @@ GameObject:
   - component: {fileID: 8206175863491093261}
   - component: {fileID: 8206175863491093263}
   - component: {fileID: 8206175863491093262}
-  - component: {fileID: -338460868726085651}
+  - component: {fileID: 1620374726293409942}
+  - component: {fileID: 2371441311925989087}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Weapon
@@ -185,7 +186,7 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
---- !u!61 &-338460868726085651
+--- !u!61 &1620374726293409942
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,16 +199,39 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -10}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 13.337403, y: 45.000004}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 4, y: 20}
   m_EdgeRadius: 0
+--- !u!114 &2371441311925989087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8206175863491093260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a145bc6fbb4414794901fb1fe56b03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  child: {fileID: 1074023186274599247}
+  firstUpgradeThreshold: 10
+  secondUpgradeThreshold: 25
+  thirdUpgradeThreshold: 50
+  weaponProtectionDuration: 4
+  weaponDecayApplyFrequencyInSeconds: 2
+  weaponDecayPerSecondPercentage_LevelOne: 5
+  weaponDecayPerSecondPercentage_LevelTwo: 7.5
+  weaponDecayPerSecondPercentage_LevelThree: 10
+  weaponDecayPerSecondPercentage_LevelFour: 12.5
+  weaponDecaySpeedController: 1

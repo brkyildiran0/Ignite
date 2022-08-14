@@ -18,6 +18,7 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] int powerupSpawnChancePercentage = 25;
     [SerializeField] float cauldronEnemyKnockbackForce = 10f;
     [SerializeField] float swordKnockbackForce = 10f;
+    [SerializeField] float killWeaponContribution = 7.5f;
 
     private SpriteRenderer spriteRenderer;
     private Transform player;
@@ -120,20 +121,26 @@ public class EnemyBehavior : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        //Normal Enemy
         if (collision.tag == "Weapon" && !isCauldron && !isPowerup)
         {
             GetComponent<PooledObject>().Finish();
+            WeaponManager.killCounter = WeaponManager.killCounter + killWeaponContribution;
             return;
         }
+
+        //HP Enemy
         else if (collision.tag == "Weapon" && !isCauldron && isPowerup)
         {
             spriteRenderer.sprite = powerupSprite;
             PlayerController.GainHP();
             isPowerup = false;
             GetComponent<PooledObject>().Finish();
+            WeaponManager.killCounter = WeaponManager.killCounter + killWeaponContribution;
             return;
         }
 
+        //Player Getting Hit
         if (collision.tag == "Player")
         {
             PlayerController.LoseHP();
