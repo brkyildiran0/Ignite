@@ -19,6 +19,7 @@ public class EnemyBehavior : MonoBehaviour
     private int mirrorRandomizer = 0;
     private int cauldronRandomizer = 0;
     private bool isCauldron = false;
+    private bool rigidbodyExists = false;
 
     void Awake()
     {
@@ -48,6 +49,7 @@ public class EnemyBehavior : MonoBehaviour
         //Remove rigidbody
         Destroy(gameObject.GetComponent<Rigidbody2D>());
         GetComponent<BoxCollider2D>().isTrigger = true;
+        rigidbodyExists = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -113,9 +115,13 @@ public class EnemyBehavior : MonoBehaviour
             isCauldron = true;
 
             //Add rigidbody to cauldron enemies to activate knockback effects
-            gameObject.AddComponent<Rigidbody2D>();
-            GetComponent<Rigidbody2D>().freezeRotation = true;
-            GetComponent<BoxCollider2D>().isTrigger = false;
+            if (!rigidbodyExists)
+            {
+                gameObject.AddComponent<Rigidbody2D>();
+                GetComponent<Rigidbody2D>().freezeRotation = true;
+                GetComponent<BoxCollider2D>().isTrigger = false;
+                rigidbodyExists = true;
+            }
         }
 
         switch (mirrorRandomizer)
