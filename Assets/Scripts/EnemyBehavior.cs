@@ -24,7 +24,7 @@ public class EnemyBehavior : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     private Transform player;
-    private BoxCollider2D collider2D;
+    private BoxCollider2D enemyCollider;
     private int spriteRandomizer = 0;
     private int mirrorRandomizer = 0;
     private int cauldronRandomizer = 0;
@@ -37,7 +37,7 @@ public class EnemyBehavior : MonoBehaviour
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        collider2D = GetComponent<BoxCollider2D>();
+        enemyCollider = GetComponent<BoxCollider2D>();
         spriteRenderer = spriteHoldingChild.gameObject.GetComponent<SpriteRenderer>();
         spriteRandomizer = Random.Range(0, 3);
         mirrorRandomizer = Random.Range(0, 2);
@@ -155,7 +155,7 @@ public class EnemyBehavior : MonoBehaviour
             {
                 PlayRandomDeathAnimation();
                 spriteRenderer.enabled = false;
-                collider2D.enabled = false;
+                enemyCollider.enabled = false;
                 StartCoroutine(WaitUntilTheAnimationEndsThenDeactivate());
             }
             
