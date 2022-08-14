@@ -502,7 +502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c11184c0c16f5d84f8d86e23e4168109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 0}
+  slider: {fileID: 550094571}
 --- !u!114 &550094571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1554,6 +1554,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1586832063}
   - component: {fileID: 1586832062}
+  - component: {fileID: 1586832064}
   m_Layer: 0
   m_Name: Border
   m_TagString: Untagged
@@ -1633,6 +1634,26 @@ RectTransform:
   m_AnchoredPosition: {x: 6.949021, y: -0.000030517578}
   m_SizeDelta: {x: 21.952, y: 2.241}
   m_Pivot: {x: 0.5235333, y: 0.5000017}
+--- !u!95 &1586832064
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586832060}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c7652e645953fb44592983b79b9fa2bc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1668224622
 GameObject:
   m_ObjectHideFlags: 0
@@ -2114,6 +2135,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 895955542064610029, guid: 072534c766e550640bb3c79453224fbd, type: 3}
+      propertyPath: m_UpdateMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3143485023522147877, guid: 072534c766e550640bb3c79453224fbd, type: 3}
       propertyPath: m_Name
       value: Player

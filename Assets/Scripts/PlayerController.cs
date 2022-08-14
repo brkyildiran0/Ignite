@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     private float horizontal;
     private float vertical;
 
+    private bool locked = false;
+
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
@@ -44,21 +46,24 @@ public class PlayerController : MonoBehaviour
         float floatingLimiter = Mathf.PingPong(Time.time * floatingSpeed, floatingAmount);
         playerBodySprite.localPosition = new Vector3(0, floatingLimiter, 0);
 
-        if (Input.GetKey(KeyCode.A))
+        if (!locked)
         {
-            animator.Play("PlayerLeft");
-        }
-        else if (Input.GetKey(KeyCode.W))
-        {
-            animator.Play("PlayerBack");
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            animator.Play("PlayerFront");
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            animator.Play("PlayerRight");
+            if (Input.GetKey(KeyCode.A))
+            {
+                animator.Play("PlayerLeft");
+            }
+            else if (Input.GetKey(KeyCode.W))
+            {
+                animator.Play("PlayerBack");
+            }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                animator.Play("PlayerFront");
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                animator.Play("PlayerRight");
+            }
         }
     }
 
@@ -73,7 +78,7 @@ public class PlayerController : MonoBehaviour
         vertical = Input.GetAxis("Vertical");
     }
 
-    public static void GainHP()
+    public void GainHP()
     {
         if (currentHP < 3)
         {
@@ -82,19 +87,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public static void LoseHP()
+    public void LoseHP()
     {
-        //Play getting hit animation
-
-        //Disable input for 0.3f;
-
-        //Kill nearby enemies 
-
-
         if (currentHP > 0)
         {
             currentHP--;
             HealthLanternManager.LoseHP();
+            StartCoroutine(PlayerHitSequence());
         }
+    }
+
+    IEnumerator PlayerHitSequence()
+    {
+        Time.timeScale = 0;
+        locked = true;
+        animator.Play("PlayerHit");
+        yield return new WaitForSecondsRealtime(1f);
+        Time.timeScale = 1;
+        locked = false;    
     }
 }

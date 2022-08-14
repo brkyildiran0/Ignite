@@ -156,7 +156,10 @@ public class EnemyBehavior : MonoBehaviour
                 PlayRandomDeathAnimation();
                 spriteRenderer.enabled = false;
                 enemyCollider.enabled = false;
-                StartCoroutine(WaitUntilTheAnimationEndsThenDeactivate());
+                if (isActiveAndEnabled)
+                {
+                    StartCoroutine(WaitUntilTheAnimationEndsThenDeactivate());
+                }
             }
             
             
@@ -166,7 +169,7 @@ public class EnemyBehavior : MonoBehaviour
         //HP Enemy
         else if (collision.tag == "Weapon" && !isCauldron && isPowerup)
         {
-            PlayerController.GainHP();
+            player.GetComponent<PlayerController>().GainHP();
             isPowerup = false;
             GetComponent<PooledObject>().Finish();
             WeaponManager.killCounter = WeaponManager.killCounter + killWeaponContribution;
@@ -176,14 +179,14 @@ public class EnemyBehavior : MonoBehaviour
         //Player Getting Hit
         if (collision.tag == "Player" && !isPowerup)
         {
-            PlayerController.LoseHP();
+            player.GetComponent<PlayerController>().LoseHP();
             GetComponent<PooledObject>().Finish();
             return;
         }
         //Player Collecting HP Enemy
         else if (collision.tag == "Player" && isPowerup)
         {
-            PlayerController.GainHP();
+            player.GetComponent<PlayerController>().GainHP();
             isPowerup = false;
             GetComponent<PooledObject>().Finish();
             WeaponManager.killCounter = WeaponManager.killCounter + killWeaponContribution;
