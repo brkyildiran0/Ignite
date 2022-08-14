@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyBehavior : MonoBehaviour
 {
     [SerializeField] Transform spriteHoldingChild;
+    [SerializeField] Animator effectsChildAnimator;
     [SerializeField] float mirrorTimer;
     [SerializeField] float enemyMovementSpeed;
     [SerializeField] float floatingSpeed;
@@ -19,6 +20,7 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] float cauldronEnemyKnockbackForce = 10f;
     [SerializeField] float swordKnockbackForce = 10f;
     [SerializeField] float killWeaponContribution = 7.5f;
+
 
     private SpriteRenderer spriteRenderer;
     private Transform player;
@@ -104,6 +106,22 @@ public class EnemyBehavior : MonoBehaviour
             GetComponent<Rigidbody2D>().AddForceAtPosition(GetComponent<Rigidbody2D>().velocity * cauldronEnemyKnockbackForce, collision.transform.position);
             Rigidbody2D swordRb = collision.gameObject.GetComponent<Rigidbody2D>();
             swordRb.AddForceAtPosition(-swordRb.velocity * swordKnockbackForce, collision.transform.position);
+
+            if (!spriteRenderer.flipX)
+            {
+                effectsChildAnimator.transform.GetComponent<SpriteRenderer>().flipX = false;
+                effectsChildAnimator.transform.localPosition = new Vector2(-0.9f, 2.6f);
+                effectsChildAnimator.ResetTrigger("cauldronHit");
+                effectsChildAnimator.SetTrigger("cauldronHit");
+            }
+            else
+            {
+                effectsChildAnimator.transform.localPosition = new Vector2(0.95f, 2.6f);
+                effectsChildAnimator.transform.GetComponent<SpriteRenderer>().flipX = true;
+                effectsChildAnimator.ResetTrigger("cauldronHit");
+                effectsChildAnimator.SetTrigger("cauldronHit");
+            }
+
 
             switch (spriteRandomizer)
             {
