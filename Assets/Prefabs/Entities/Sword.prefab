@@ -199,7 +199,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -10}
+  m_Offset: {x: 0, y: -13.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -210,7 +210,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4, y: 20}
+  m_Size: {x: 4, y: 24}
   m_EdgeRadius: 0
 --- !u!114 &2371441311925989087
 MonoBehaviour:
@@ -228,10 +228,7 @@ MonoBehaviour:
   firstUpgradeThreshold: 10
   secondUpgradeThreshold: 25
   thirdUpgradeThreshold: 50
-  weaponProtectionDuration: 4
-  weaponDecayApplyFrequencyInSeconds: 2
-  weaponDecayPerSecondPercentage_LevelOne: 5
-  weaponDecayPerSecondPercentage_LevelTwo: 7.5
-  weaponDecayPerSecondPercentage_LevelThree: 10
-  weaponDecayPerSecondPercentage_LevelFour: 12.5
-  weaponDecaySpeedController: 1
+  weaponProtectionDurationInSeconds: 4
+  protectionDecaySpeed: 2
+  decayAmountPerFixedTime: 0.2
+  decayIncreaseAmount: 0.02
