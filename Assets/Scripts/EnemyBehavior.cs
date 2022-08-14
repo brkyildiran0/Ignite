@@ -13,7 +13,9 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] Sprite enemySprite2;
     [SerializeField] Sprite enemySprite3;
     [SerializeField] Sprite cauldronEnemySprite;
+    [SerializeField] Sprite powerupSprite;
     [SerializeField] int cauldronSpawnChancePercentage = 10;
+    [SerializeField] int powerupSpawnChancePercentage = 25;
     [SerializeField] float cauldronEnemyKnockbackForce = 10f;
     [SerializeField] float swordKnockbackForce = 10f;
 
@@ -22,6 +24,8 @@ public class EnemyBehavior : MonoBehaviour
     private int spriteRandomizer = 0;
     private int mirrorRandomizer = 0;
     private int cauldronRandomizer = 0;
+    private int powerupRandomizer = 0;
+    private bool isPowerup = false;
     private bool isCauldron = false;
     private bool rigidbodyExists = false;
 
@@ -31,7 +35,8 @@ public class EnemyBehavior : MonoBehaviour
         spriteRenderer = spriteHoldingChild.gameObject.GetComponent<SpriteRenderer>();
         spriteRandomizer = Random.Range(0, 3);
         mirrorRandomizer = Random.Range(0, 2);
-        cauldronRandomizer = Random.Range(0, 10);
+        cauldronRandomizer = Random.Range(0, cauldronSpawnChancePercentage);
+        powerupRandomizer = Random.Range(0, powerupSpawnChancePercentage);
     }
 
     void Update()
@@ -89,7 +94,7 @@ public class EnemyBehavior : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Weapon" && isCauldron)
+        if (collision.gameObject.tag == "Weapon" && isCauldron && !isPowerup)
         {
             //Physics
             GetComponent<Rigidbody2D>().AddForceAtPosition(GetComponent<Rigidbody2D>().velocity * cauldronEnemyKnockbackForce, collision.transform.position);
@@ -115,14 +120,25 @@ public class EnemyBehavior : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Weapon" && !isCauldron)
+        if (collision.tag == "Weapon" && !isCauldron && !isPowerup)
         {
             GetComponent<PooledObject>().Finish();
+            return;
+        }
+        else if (collision.tag == "Weapon" && !isCauldron && isPowerup)
+        {
+            spriteRenderer.sprite = powerupSprite;
+            PlayerController.GainHP();
+            isPowerup = false;
+            GetComponent<PooledObject>().Finish();
+            return;
         }
 
         if (collision.tag == "Player")
         {
-            //TODO, lose HP
+            PlayerController.LoseHP();
+            GetComponent<PooledObject>().Finish();
+            return;
         }
     }
 
@@ -155,6 +171,12 @@ public class EnemyBehavior : MonoBehaviour
                 GetComponent<BoxCollider2D>().isTrigger = false;
                 rigidbodyExists = true;
             }
+        }
+        //Chance for the enemies to be powerup provided
+        else if (powerupRandomizer == 0)
+        {
+            spriteRenderer.sprite = powerupSprite;
+            isPowerup = true;
         }
 
         switch (mirrorRandomizer)

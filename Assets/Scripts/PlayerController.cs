@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform playerBodySprite;
     [SerializeField] Animator animator;
 
-    public int currentHP = 0;
+    public static int currentHP = 0;
     
     private Rigidbody2D body;
 
@@ -80,11 +80,10 @@ public class PlayerController : MonoBehaviour
         {
             //Death, press any button to trigger "revive" sequence
             //Time.timeScale = 0.0001f;
-
         }
     }
 
-    private void GainHP()
+    public static void GainHP()
     {
         if (currentHP < 3)
         {
@@ -93,8 +92,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void LoseHP()
+    public static void LoseHP()
     {
+        //Play getting hit animation
+
+        //Disable input for 0.3f;
+
+        //Kill nearby enemies 
+
+
         if (currentHP > 0)
         {
             currentHP--;
