@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1074023186274599247}
   - component: {fileID: 76813996667020988}
   - component: {fileID: 1976022272843342914}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SwordSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 8206175863491093262}
   - component: {fileID: 1620374726293409942}
   - component: {fileID: 2371441311925989087}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sword
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -225,9 +225,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   child: {fileID: 1074023186274599247}
-  firstUpgradeThreshold: 10
-  secondUpgradeThreshold: 25
-  thirdUpgradeThreshold: 50
   weaponProtectionDurationInSeconds: 4
   protectionDecaySpeed: 2
   decayAmountPerFixedTime: 0.2

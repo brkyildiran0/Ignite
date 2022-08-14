@@ -6,9 +6,6 @@ using UnityEngine;
 public class WeaponManager : MonoBehaviour
 {
     [SerializeField] Transform child;
-    [SerializeField] int firstUpgradeThreshold = 100;
-    [SerializeField] int secondUpgradeThreshold = 250;
-    [SerializeField] int thirdUpgradeThreshold = 500;
     [SerializeField] float weaponProtectionDurationInSeconds = 4f;
     [SerializeField] float protectionDecaySpeed = 2f;
     [SerializeField] float decayAmountPerFixedTime = 0.2f;
@@ -16,6 +13,9 @@ public class WeaponManager : MonoBehaviour
 
     [Range(-1, 10000)]public static float killCounter = 0;
     public static int weaponLevel = 1;
+    public static int firstUpgradeThreshold = 100;
+    public static int secondUpgradeThreshold = 250;
+    public static int thirdUpgradeThreshold = 425;
 
     private Animator swordAnimator;
     private BoxCollider2D swordCollider;
@@ -35,8 +35,6 @@ public class WeaponManager : MonoBehaviour
         HandleWeaponUpgrade();
         HandleWeaponDowngrade();
         HandleWeaponHitbox();
-
-        print(killCounter);
     }
 
     /*
