@@ -54,7 +54,7 @@ public class EnemyBehavior : MonoBehaviour
     private void OnEnable()
     {
         spriteRenderer.enabled = true;
-        collider2D.enabled = true;
+        enemyCollider.enabled = true;
         hasTriggeredDeathAnimation = false;
         RandomizeSprite();
         StartCoroutine(MirrorSpriteRendererWithDelay());
