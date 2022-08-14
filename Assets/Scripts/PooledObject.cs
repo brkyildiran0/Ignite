@@ -24,11 +24,4 @@ public class PooledObject : MonoBehaviour
             Finished(this);
         }
     }
-
-    // Convenience method to call finish when particles finish.
-    // Needs ParticleSystem stop action to be set to "Callback".
-    private void OnParticleSystemStopped()
-    {
-        Finish();
-    }
 }

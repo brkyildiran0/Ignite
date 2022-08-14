@@ -21,6 +21,10 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+    }
+
+    void Start()
+    {
         GainHP();
     }
 
