@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
 {
+    [SerializeField] Transform spriteHoldingChild;
+    [SerializeField] float mirrorTimer;
     [SerializeField] float enemyMovementSpeed;
+    [SerializeField] float floatingSpeed;
+    [SerializeField] float floatingAmount;
     [SerializeField] Sprite enemySprite1;
     [SerializeField] Sprite enemySprite2;
     [SerializeField] Sprite enemySprite3;
@@ -13,8 +17,8 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] float cauldronEnemyKnockbackForce = 10f;
     [SerializeField] float swordKnockbackForce = 10f;
 
-    private Transform player;
     private SpriteRenderer spriteRenderer;
+    private Transform player;
     private int spriteRandomizer = 0;
     private int mirrorRandomizer = 0;
     private int cauldronRandomizer = 0;
@@ -24,19 +28,50 @@ public class EnemyBehavior : MonoBehaviour
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        spriteRenderer = spriteHoldingChild.gameObject.GetComponent<SpriteRenderer>();
         spriteRandomizer = Random.Range(0, 3);
         mirrorRandomizer = Random.Range(0, 2);
         cauldronRandomizer = Random.Range(0, 10);
     }
 
+    void Update()
+    {
+        HandleMovement();
+        HandleAnimation();
+    }
+
     private void OnEnable()
     {
         RandomizeSprite();
+        StartCoroutine(MirrorSpriteRendererWithDelay());
     }
 
-    void Update()
+    private void HandleMovement()
     {
         transform.position = Vector3.MoveTowards(transform.position, player.position, enemyMovementSpeed * Time.deltaTime);
+    }
+
+    private void HandleAnimation()
+    {
+        float floatingLimiter = Mathf.PingPong(Time.time * floatingSpeed, floatingAmount);
+        spriteHoldingChild.localPosition = new Vector3(0, floatingLimiter, 0);
+    }
+
+    IEnumerator MirrorSpriteRendererWithDelay()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(mirrorTimer);
+
+            if (!spriteRenderer.flipX)
+            {
+                spriteRenderer.flipX = true;
+            }
+            else
+            {
+                spriteRenderer.flipX = false;
+            }
+        }
     }
 
     IEnumerator RemoveRigidbodyWithDelay()
@@ -93,8 +128,6 @@ public class EnemyBehavior : MonoBehaviour
 
     private void RandomizeSprite()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
         switch (spriteRandomizer)
         {
             case 0:
