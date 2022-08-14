@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1074023186274599247}
   - component: {fileID: 76813996667020988}
+  - component: {fileID: 1976022272843342914}
   m_Layer: 0
   m_Name: SwordSprite
   m_TagString: Untagged
@@ -84,6 +85,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1976022272843342914
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7364698427665310709}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c1af8d0d4c4698040b0ce22f13db9f46, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8206175863491093260
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,7 +176,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.09300709, y: -25.569237}
-  m_ConnectedAnchor: {x: 0.09300709, y: -0.56923676}
+  m_ConnectedAnchor: {x: 0.09300709, y: -3.0692368}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 200
