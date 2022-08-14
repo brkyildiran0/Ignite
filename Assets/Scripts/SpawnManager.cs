@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    [SerializeField] float markerAppearThreshold;
+
     private Vector3 bottomLeftBorder_1;
     private Vector3 topRightBorder_1;
     private float randomXaxis_1;
@@ -54,7 +56,6 @@ public class SpawnManager : MonoBehaviour
 
             yield return new WaitForSecondsRealtime(spawnRate);
 
-            //SpawnAtDeterminedLocations();
             ManageHordeGrowth();
         }
     }
@@ -67,24 +68,24 @@ public class SpawnManager : MonoBehaviour
             randomXaxis_1 = UnityEngine.Random.Range(bottomLeftBorder_1.x, topRightBorder_1.x);
             randomYaxis_1 = UnityEngine.Random.Range(bottomLeftBorder_1.y, topRightBorder_1.y);
             randomSpawnPosition_1 = new Vector3(randomXaxis_1, randomYaxis_1, 0f);
-            PooledObject instance_1 = Pool.Instance.Spawn(spawnMarker, randomSpawnPosition_1, Quaternion.identity);
 
             randomXaxis_2 = UnityEngine.Random.Range(bottomLeftBorder_2.x, topRightBorder_2.x);
             randomYaxis_2 = UnityEngine.Random.Range(bottomLeftBorder_2.y, topRightBorder_2.y);
             randomSpawnPosition_2 = new Vector3(randomXaxis_2, randomYaxis_2, 0f);
-            PooledObject instance_2 = Pool.Instance.Spawn(spawnMarker, randomSpawnPosition_2, Quaternion.identity);
-
 
             randomXaxis_3 = UnityEngine.Random.Range(bottomLeftBorder_3.x, topRightBorder_3.x);
             randomYaxis_3 = UnityEngine.Random.Range(bottomLeftBorder_3.y, topRightBorder_3.y);
             randomSpawnPosition_3 = new Vector3(randomXaxis_3, randomYaxis_3, 0f);
-            PooledObject instance_3 = Pool.Instance.Spawn(spawnMarker, randomSpawnPosition_3, Quaternion.identity);
-
 
             randomXaxis_4 = UnityEngine.Random.Range(bottomLeftBorder_4.x, topRightBorder_4.x);
             randomYaxis_4 = UnityEngine.Random.Range(bottomLeftBorder_4.y, topRightBorder_4.y);
             randomSpawnPosition_4 = new Vector3(randomXaxis_4, randomYaxis_4, 0f);
-            PooledObject instance_4 = Pool.Instance.Spawn(spawnMarker, randomSpawnPosition_4, Quaternion.identity);
+
+
+            PooledObject marker_1 = Pool.Instance.Spawn(spawnMarker, randomSpawnPosition_1, Quaternion.identity);
+            PooledObject marker_2 = Pool.Instance.Spawn(spawnMarker, randomSpawnPosition_2, Quaternion.identity);
+            PooledObject marker_3 = Pool.Instance.Spawn(spawnMarker, randomSpawnPosition_3, Quaternion.identity);
+            PooledObject marker_4 = Pool.Instance.Spawn(spawnMarker, randomSpawnPosition_4, Quaternion.identity);
 
 
             PooledObject enemy_1 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_1, Quaternion.identity);
@@ -93,17 +94,6 @@ public class SpawnManager : MonoBehaviour
             PooledObject enemy_4 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_4, Quaternion.identity);
         }
     }
-
-    //private void SpawnAtDeterminedLocations()
-    //{
-    //    for (int j = 0; j < hordePopulation; j++)
-    //    {
-    //        PooledObject instance_1 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_1, Quaternion.identity);
-    //        PooledObject instance_2 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_2, Quaternion.identity);
-    //        PooledObject instance_3 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_3, Quaternion.identity);
-    //        PooledObject instance_4 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_4, Quaternion.identity);
-    //    }
-    //}
 
     private void SetSpawnBoundaries()
     {
