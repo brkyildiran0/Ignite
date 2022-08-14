@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    [SerializeField] float markerAppearThreshold;
-
     private Vector3 bottomLeftBorder_1;
     private Vector3 topRightBorder_1;
     private float randomXaxis_1;
@@ -40,7 +38,6 @@ public class SpawnManager : MonoBehaviour
     private int hordeGrowObserver = 0;
 
     public PooledObject basicEnemy;
-    public PooledObject spawnMarker;
 
     private void Start()
     {
@@ -80,13 +77,6 @@ public class SpawnManager : MonoBehaviour
             randomXaxis_4 = UnityEngine.Random.Range(bottomLeftBorder_4.x, topRightBorder_4.x);
             randomYaxis_4 = UnityEngine.Random.Range(bottomLeftBorder_4.y, topRightBorder_4.y);
             randomSpawnPosition_4 = new Vector3(randomXaxis_4, randomYaxis_4, 0f);
-
-
-            PooledObject marker_1 = Pool.Instance.Spawn(spawnMarker, randomSpawnPosition_1, Quaternion.identity);
-            PooledObject marker_2 = Pool.Instance.Spawn(spawnMarker, randomSpawnPosition_2, Quaternion.identity);
-            PooledObject marker_3 = Pool.Instance.Spawn(spawnMarker, randomSpawnPosition_3, Quaternion.identity);
-            PooledObject marker_4 = Pool.Instance.Spawn(spawnMarker, randomSpawnPosition_4, Quaternion.identity);
-
 
             PooledObject enemy_1 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_1, Quaternion.identity);
             PooledObject enemy_2 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_2, Quaternion.identity);

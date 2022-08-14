@@ -1254,11 +1254,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f92020307877e4a9b5df1e60217078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  markerAppearThreshold: 0
   hordePopulation: 1
   hordeGrowLimiter: 3
   basicEnemy: {fileID: 1116771144682154912, guid: 51e8021e5f55b3140bfabfa78f3e9ada, type: 3}
-  spawnMarker: {fileID: 6213366030578343422, guid: b3f328878ebf15241a741c1b1d6bd076, type: 3}
 --- !u!1 &1269279942
 GameObject:
   m_ObjectHideFlags: 0
@@ -1766,8 +1764,6 @@ MonoBehaviour:
   objectPools:
   - amount: 100
     objectToPool: {fileID: 1116771144682154912, guid: 51e8021e5f55b3140bfabfa78f3e9ada, type: 3}
-  - amount: 100
-    objectToPool: {fileID: 6213366030578343422, guid: b3f328878ebf15241a741c1b1d6bd076, type: 3}
 --- !u!4 &1721690441
 Transform:
   m_ObjectHideFlags: 0
