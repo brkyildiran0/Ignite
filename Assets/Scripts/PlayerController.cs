@@ -32,7 +32,6 @@ public class PlayerController : MonoBehaviour
     {
         GetInput();
         HandleAnimation();
-        HPCheck();
     }
 
     void FixedUpdate()
@@ -72,15 +71,6 @@ public class PlayerController : MonoBehaviour
     {
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
-    }
-
-    private void HPCheck()
-    {
-        if (currentHP == 0)
-        {
-            //Death, press any button to trigger "revive" sequence
-            //Time.timeScale = 0.0001f;
-        }
     }
 
     public static void GainHP()

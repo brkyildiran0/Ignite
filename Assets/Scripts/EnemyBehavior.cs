@@ -54,7 +54,10 @@ public class EnemyBehavior : MonoBehaviour
 
     private void HandleMovement()
     {
-        transform.position = Vector3.MoveTowards(transform.position, player.position, enemyMovementSpeed * Time.deltaTime);
+        if (!isPowerup)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, player.position, enemyMovementSpeed * Time.deltaTime);
+        }
     }
 
     private void HandleAnimation()
@@ -128,11 +131,9 @@ public class EnemyBehavior : MonoBehaviour
             WeaponManager.killCounter = WeaponManager.killCounter + killWeaponContribution;
             return;
         }
-
         //HP Enemy
         else if (collision.tag == "Weapon" && !isCauldron && isPowerup)
         {
-            spriteRenderer.sprite = powerupSprite;
             PlayerController.GainHP();
             isPowerup = false;
             GetComponent<PooledObject>().Finish();
@@ -141,10 +142,19 @@ public class EnemyBehavior : MonoBehaviour
         }
 
         //Player Getting Hit
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && !isPowerup)
         {
             PlayerController.LoseHP();
             GetComponent<PooledObject>().Finish();
+            return;
+        }
+        //Player Collecting HP Enemy
+        else if (collision.tag == "Player" && isPowerup)
+        {
+            PlayerController.GainHP();
+            isPowerup = false;
+            GetComponent<PooledObject>().Finish();
+            WeaponManager.killCounter = WeaponManager.killCounter + killWeaponContribution;
             return;
         }
     }
