@@ -171,6 +171,13 @@ public class EnemyBehavior : MonoBehaviour
 
             StartCoroutine(RemoveRigidbodyWithDelay());
         }
+
+        if (collision.gameObject.tag == "Player" && isCauldron && !isPowerup)
+        {
+            player.GetComponent<PlayerController>().LoseHP();
+            GetComponent<PooledObject>().Finish();
+            return;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
