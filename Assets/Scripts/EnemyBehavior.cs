@@ -166,15 +166,6 @@ public class EnemyBehavior : MonoBehaviour
             WeaponManager.killCounter = WeaponManager.killCounter + killWeaponContribution;
             return;
         }
-        //HP Enemy
-        else if (collision.tag == "Weapon" && !isCauldron && isPowerup)
-        {
-            player.GetComponent<PlayerController>().GainHP();
-            isPowerup = false;
-            GetComponent<PooledObject>().Finish();
-            WeaponManager.killCounter = WeaponManager.killCounter + killWeaponContribution;
-            return;
-        }
 
         //Player Getting Hit
         if (collision.tag == "Player" && !isPowerup)

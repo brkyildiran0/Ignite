@@ -21,6 +21,12 @@ public class PlayerController : MonoBehaviour
     private float vertical;
 
     private bool locked = false;
+    private bool isDeathSequenceTriggered = false;
+
+    //-----------Used to disable during death & respawn-------------//
+    [SerializeField] GameObject POOL;
+    [SerializeField] GameObject MANAGER_Spawn;
+    [SerializeField] GameObject Sword;
 
     void Awake()
     {
@@ -35,9 +41,65 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        CheckHPDepleted();
         GetInput();
         HandleAnimation();
     }
+
+    private void CheckHPDepleted()
+    {
+        if (currentHP == 0 && !isDeathSequenceTriggered)
+        {
+            isDeathSequenceTriggered = true;
+            Time.timeScale = 0;
+
+            //Disable the components necessary
+            POOL.SetActive(false);
+            MANAGER_Spawn.SetActive(false);
+            Sword.SetActive(false);
+            locked = true;
+
+            StartCoroutine(DeathSequence());
+        }
+    }
+
+    IEnumerator DeathSequence()
+    {
+        animator.Play("PlayerDeath");
+        yield return new WaitForSecondsRealtime(3f);
+        slashAnimator.Play("PlayerRevive");
+        //StartCoroutine(DeathSequenceTwo());
+        animator.Play("PlayerFront");
+        locked = false;
+
+        //Reset each element to its initial state.
+        MANAGER_Spawn.SetActive(true);
+        POOL.SetActive(true);
+        Sword.SetActive(true);
+        ScoreManager.ResetScore();
+        GainHP();
+
+        Time.timeScale = 1;
+        isDeathSequenceTriggered = false;
+    }
+
+    //IEnumerator DeathSequenceTwo()
+    //{
+    //    yield return new WaitForSecondsRealtime(1f);
+        
+    //    animator.Play("PlayerFront");
+    //    locked = false;
+
+    //    //Reset each element to its initial state.
+    //    MANAGER_Spawn.SetActive(true);
+    //    POOL.SetActive(true);
+    //    Sword.SetActive(true);
+    //    ScoreManager.ResetScore();
+    //    GainHP();
+        
+    //    Time.timeScale = 1;
+    //    isDeathSequenceTriggered = false;
+    //}
 
     void FixedUpdate()
     {
@@ -96,7 +158,10 @@ public class PlayerController : MonoBehaviour
         {
             currentHP--;
             HealthLanternManager.LoseHP();
-            StartCoroutine(PlayerHitSequence());
+            if (currentHP > 0)
+            {
+                StartCoroutine(PlayerHitSequence());
+            }
         }
     }
 

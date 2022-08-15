@@ -9,7 +9,11 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] float weaponProtectionDurationInSeconds = 4f;
     [SerializeField] float protectionDecaySpeed = 2f;
     [SerializeField] float decayAmountPerFixedTime = 0.2f;
-    [SerializeField] float decayIncreaseAmountBaseValue = 0.02f;
+
+    [SerializeField] float maxDecayForLevelOne = 0.22f;
+    [SerializeField] float maxDecayForLevelTwo = 0.25f;
+    [SerializeField] float maxDecayForLevelThree = 0.27f;
+    [SerializeField] float maxDecayForLevelFour = 0.3f;
 
     [SerializeField] float levelOneDecayIncrease = 0.02f;
     [SerializeField] float levelTwoDecayIncrease = 0.021f;
@@ -33,7 +37,7 @@ public class WeaponManager : MonoBehaviour
         swordAnimator = GetComponentInChildren<Animator>();
         swordCollider = GetComponent<BoxCollider2D>();
         remainingProtectionDuration = weaponProtectionDurationInSeconds;
-        decayIncreaseAmountUpdated = decayIncreaseAmountBaseValue;
+        decayIncreaseAmountUpdated = levelOneDecayIncrease;
     }
 
     void Update()
@@ -47,9 +51,21 @@ public class WeaponManager : MonoBehaviour
 
     private void LimitDecayRate()
     {
-        if (decayAmountPerFixedTime > 0.35f)
+        if (weaponLevel == 1 && decayAmountPerFixedTime > maxDecayForLevelOne)
         {
-            decayAmountPerFixedTime = 0.35f;
+            decayAmountPerFixedTime = maxDecayForLevelOne;
+        }
+        else if (weaponLevel == 2 && decayAmountPerFixedTime > maxDecayForLevelTwo)
+        {
+            decayAmountPerFixedTime = maxDecayForLevelTwo;
+        }
+        else if (weaponLevel == 3 && decayAmountPerFixedTime > maxDecayForLevelThree)
+        {
+            decayAmountPerFixedTime = maxDecayForLevelThree;
+        }
+        else if (weaponLevel == 4 && decayAmountPerFixedTime > maxDecayForLevelFour)
+        {
+            decayAmountPerFixedTime = maxDecayForLevelFour;
         }
     }
 
@@ -97,9 +113,32 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        killCounter = 0;
+        LevelDownWeaponByOne();
+        isProtected = true;
+        remainingProtectionDuration = weaponProtectionDurationInSeconds;
+        decayAmountPerFixedTime = 0f;
+    }
+
     private void HandleWeaponDowngrade()
     {
         if (killCounter < 0 && weaponLevel != 1)
+        {
+            weaponLevel--;
+            killCounter = 0;
+            swordAnimator.ResetTrigger("downgrade");
+            swordAnimator.SetTrigger("downgrade");
+            isProtected = true;
+            remainingProtectionDuration = weaponProtectionDurationInSeconds;
+            decayAmountPerFixedTime = 0f;
+        }
+    }
+
+    public void LevelDownWeaponByOne()
+    {
+        if (weaponLevel != 1)
         {
             weaponLevel--;
             killCounter = 0;

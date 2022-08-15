@@ -45,20 +45,39 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(Spawn());
     }
 
+    private void OnDisable()
+    {
+        StopCoroutine(Spawn());
+    }
+
+    private void OnEnable()
+    {
+        spawnRate = 5;
+        hordePopulation = 1;
+        hordeGrowLimiter = 3;
+        hordeGrowObserver = 0;
+        SetSpawnBoundaries();
+        StartCoroutine(Spawn());
+    }
+
     IEnumerator Spawn()
     {
-        while (true)
+        if (Pool.initializationComplete)
         {
-            DetermineSpawnPositions();
+            while (true)
+            {
+            
+                SpawnAtRandomPositions();
 
-            yield return new WaitForSeconds(spawnRate);
+                yield return new WaitForSeconds(spawnRate);
 
-            ManageHordeGrowth();
+                ManageHordeGrowth();
+            }
         }
     }
 
 
-    private void DetermineSpawnPositions()
+    private void SpawnAtRandomPositions()
     {
         for (int i = 0; i < hordePopulation; i++)
         {

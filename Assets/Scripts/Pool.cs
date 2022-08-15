@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Pool : MonoBehaviour
 {
+    public static bool initializationComplete = false;
+
     [Serializable] // Let this appear in the inspector.
     public class ObjectPool
     {
@@ -56,6 +58,15 @@ public class Pool : MonoBehaviour
             }
 
             pool.Add(id, queue);
+        }
+        initializationComplete = true;
+    }
+
+    private void OnEnable()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
         }
     }
 
