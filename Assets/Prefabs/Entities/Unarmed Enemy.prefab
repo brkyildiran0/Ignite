@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1795960726023489561}
   - component: {fileID: 6268524021134873053}
   - component: {fileID: 49970068390096828}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Effects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5822504823596237167}
   - component: {fileID: 4413336547625521816}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy_Sprite
   m_TagString: SpriteHolder
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 1116771144682154912}
   - component: {fileID: -1734353687975055647}
   - component: {fileID: 1949990866106285366}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Unarmed Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -271,6 +271,7 @@ MonoBehaviour:
   killWeaponContribution: 7.5
   blinkingDurationBeforeSpawn: 2
   blinkingTimeAdjuster: 100
+  isPowerup: 0
 --- !u!61 &1949990866106285366
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -307,7 +308,7 @@ GameObject:
   m_Component:
   - component: {fileID: 437729911055007570}
   - component: {fileID: 4554450083283205973}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy_Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

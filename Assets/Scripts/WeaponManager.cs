@@ -20,6 +20,8 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] float levelThreeDecayIncrease = 0.022f;
     [SerializeField] float levelFourDecayIncrease = 0.023f;
 
+    [SerializeField] SpawnManager spawner;
+
     [Range(-1, 10000)]public static float killCounter = 0;
     public static int weaponLevel = 1;
     public static int firstUpgradeThreshold = 100;
@@ -151,6 +153,8 @@ public class WeaponManager : MonoBehaviour
             isProtected = true;
             remainingProtectionDuration = weaponProtectionDurationInSeconds;
             decayAmountPerFixedTime = 0f;
+
+            spawner.DecreaseHordeByOne();
         }
     }
 
@@ -166,6 +170,8 @@ public class WeaponManager : MonoBehaviour
             isProtected = true;
             remainingProtectionDuration = weaponProtectionDurationInSeconds;
             decayAmountPerFixedTime = 0f;
+
+            spawner.DecreaseHordeByOne();
         }
         else if (weaponLevel == 2 && killCounter > secondUpgradeThreshold)
         {
@@ -177,6 +183,8 @@ public class WeaponManager : MonoBehaviour
             isProtected = true;
             remainingProtectionDuration = weaponProtectionDurationInSeconds;
             decayAmountPerFixedTime = 0f;
+
+            spawner.DecreaseHordeByOne();
         }
         else if (weaponLevel == 3 && killCounter > thirdUpgradeThreshold)
         {
@@ -188,6 +196,8 @@ public class WeaponManager : MonoBehaviour
             isProtected = true;
             remainingProtectionDuration = weaponProtectionDurationInSeconds;
             decayAmountPerFixedTime = 0f;
+
+            spawner.DecreaseHordeByOne();
         }
     }
 

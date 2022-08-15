@@ -32,7 +32,7 @@ public class EnemyBehavior : MonoBehaviour
     private int mirrorRandomizer = 0;
     private int cauldronRandomizer = 0;
     private int powerupRandomizer = 0;
-    private bool isPowerup = false;
+    public bool isPowerup = false;
     private bool isCauldron = false;
     private bool rigidbodyExists = false;
     private bool hasTriggeredDeathAnimation = false;
@@ -183,8 +183,8 @@ public class EnemyBehavior : MonoBehaviour
                     StartCoroutine(WaitUntilTheAnimationEndsThenDeactivate());
                 }
             }
-            
-            
+
+            hasTriggeredDeathAnimation = false;
             WeaponManager.killCounter = WeaponManager.killCounter + killWeaponContribution;
             return;
         }

@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject MANAGER_Spawn;
     [SerializeField] GameObject Sword;
 
+    [SerializeField] SpawnManager spawnManager;
+
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
@@ -162,6 +164,7 @@ public class PlayerController : MonoBehaviour
             if (currentHP > 0)
             {
                 StartCoroutine(PlayerHitSequence());
+                spawnManager.DecreaseHordeByOne();
             }
         }
     }
