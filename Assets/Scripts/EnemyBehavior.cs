@@ -21,6 +21,8 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] float cauldronEnemyKnockbackForce = 10f;
     [SerializeField] float swordKnockbackForce = 10f;
     [SerializeField] float killWeaponContribution = 7.5f;
+    [SerializeField] float blinkingDurationBeforeSpawn = 2.0f;
+    [SerializeField] float blinkingTimeAdjuster = 2.0f;
 
 
     private SpriteRenderer spriteRenderer;
@@ -50,6 +52,23 @@ public class EnemyBehavior : MonoBehaviour
     {
         HandleMovement();
         HandleAnimation();
+        HPEnemyDecay();
+    }
+
+    private void HPEnemyDecay()
+    {
+        if (isPowerup)
+        {
+            StartCoroutine(DecayHPEnemy());
+        }
+    }
+
+    IEnumerator DecayHPEnemy()
+    {
+        yield return new WaitForSecondsRealtime(5f);
+
+        isPowerup = false;
+        GetComponent<PooledObject>().Finish();
     }
 
     private void OnEnable()

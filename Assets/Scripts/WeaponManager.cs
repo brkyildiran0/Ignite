@@ -116,7 +116,21 @@ public class WeaponManager : MonoBehaviour
     private void OnEnable()
     {
         killCounter = 0;
-        LevelDownWeaponByOne();
+        ResetSword();
+        isProtected = true;
+        remainingProtectionDuration = weaponProtectionDurationInSeconds;
+        decayAmountPerFixedTime = 0f;
+    }
+
+    public void ResetSword()
+    {
+        while (weaponLevel != 1)
+        {
+            weaponLevel--;
+            killCounter = 0;
+            swordAnimator.ResetTrigger("downgrade");
+            swordAnimator.SetTrigger("downgrade");
+        }
         isProtected = true;
         remainingProtectionDuration = weaponProtectionDurationInSeconds;
         decayAmountPerFixedTime = 0f;
@@ -125,20 +139,6 @@ public class WeaponManager : MonoBehaviour
     private void HandleWeaponDowngrade()
     {
         if (killCounter < 0 && weaponLevel != 1)
-        {
-            weaponLevel--;
-            killCounter = 0;
-            swordAnimator.ResetTrigger("downgrade");
-            swordAnimator.SetTrigger("downgrade");
-            isProtected = true;
-            remainingProtectionDuration = weaponProtectionDurationInSeconds;
-            decayAmountPerFixedTime = 0f;
-        }
-    }
-
-    public void LevelDownWeaponByOne()
-    {
-        if (weaponLevel != 1)
         {
             weaponLevel--;
             killCounter = 0;

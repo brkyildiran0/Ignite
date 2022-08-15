@@ -29,7 +29,7 @@ public class SpawnManager : MonoBehaviour
     private float randomYaxis_4;
     private Vector3 randomSpawnPosition_4;
 
-    public static float spawnRate = 5f;
+    public static float spawnRate = 3f;
     public int hordePopulation = 1;
 
     //Controls how many waves are necessary to increment the spawned enemies at once for each spawn position
@@ -66,11 +66,9 @@ public class SpawnManager : MonoBehaviour
         {
             while (true)
             {
-            
+
                 SpawnAtRandomPositions();
-
                 yield return new WaitForSeconds(spawnRate);
-
                 ManageHordeGrowth();
             }
         }
@@ -107,20 +105,20 @@ public class SpawnManager : MonoBehaviour
     private void SetSpawnBoundaries()
     {
         //Bottom Spawn Area
-        bottomLeftBorder_1 = new Vector3(-90, -50, 0);
-        topRightBorder_1 = new Vector3(90, -35, 0);
+        bottomLeftBorder_1 = new Vector3(-95, -55, 0);
+        topRightBorder_1 = new Vector3(95, -40, 0);
 
         //Left Spawn Area
-        bottomLeftBorder_2 = new Vector3(-90, -50, 0);
-        topRightBorder_2 = new Vector3(-75, 50, 0);
+        bottomLeftBorder_2 = new Vector3(-95, -55, 0);
+        topRightBorder_2 = new Vector3(-80, 55, 0);
 
         //Top Spawn Area
-        bottomLeftBorder_3 = new Vector3(-90, 35, 0);
-        topRightBorder_3 = new Vector3(90, 50, 0);
+        bottomLeftBorder_3 = new Vector3(-95, 40, 0);
+        topRightBorder_3 = new Vector3(95, 55, 0);
 
         //Right Spawn Area
-        bottomLeftBorder_4 = new Vector3(75, -50, 0);
-        topRightBorder_4 = new Vector3(90, 50, 0);
+        bottomLeftBorder_4 = new Vector3(80, -55, 0);
+        topRightBorder_4 = new Vector3(95, 55, 0);
     }
 
     private void ManageHordeGrowth()

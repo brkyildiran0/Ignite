@@ -269,6 +269,8 @@ MonoBehaviour:
   cauldronEnemyKnockbackForce: 200
   swordKnockbackForce: 200
   killWeaponContribution: 7.5
+  blinkingDurationBeforeSpawn: 2
+  blinkingTimeAdjuster: 100
 --- !u!61 &1949990866106285366
 BoxCollider2D:
   m_ObjectHideFlags: 0
