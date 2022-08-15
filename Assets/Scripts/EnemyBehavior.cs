@@ -6,6 +6,7 @@ public class EnemyBehavior : MonoBehaviour
 {
     [SerializeField] Transform spriteHoldingChild;
     [SerializeField] Animator effectsChildAnimator;
+    [SerializeField] SpriteRenderer shadowHoldingChildSpriteRenderer;
     [SerializeField] float mirrorTimer;
     [SerializeField] float enemyMovementSpeed;
     [SerializeField] float floatingSpeed;
@@ -55,6 +56,7 @@ public class EnemyBehavior : MonoBehaviour
     {
         spriteRenderer.enabled = true;
         enemyCollider.enabled = true;
+        shadowHoldingChildSpriteRenderer.enabled = true;
         hasTriggeredDeathAnimation = false;
         RandomizeSprite();
         StartCoroutine(MirrorSpriteRendererWithDelay());
@@ -156,6 +158,7 @@ public class EnemyBehavior : MonoBehaviour
                 PlayRandomDeathAnimation();
                 spriteRenderer.enabled = false;
                 enemyCollider.enabled = false;
+                shadowHoldingChildSpriteRenderer.enabled = false;
                 if (isActiveAndEnabled)
                 {
                     StartCoroutine(WaitUntilTheAnimationEndsThenDeactivate());
@@ -188,7 +191,7 @@ public class EnemyBehavior : MonoBehaviour
     IEnumerator WaitUntilTheAnimationEndsThenDeactivate()
     {
         hasTriggeredDeathAnimation = true;
-        yield return new WaitForSecondsRealtime(0.18f);
+        yield return new WaitForSecondsRealtime(0.183f);
         GetComponent<PooledObject>().Finish();
     }
 
