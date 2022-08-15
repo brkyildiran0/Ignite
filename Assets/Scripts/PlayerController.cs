@@ -102,6 +102,9 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 0;
         locked = true;
         animator.Play("PlayerHit");
+
+        //Slash around 
+
         yield return new WaitForSecondsRealtime(1f);
         Time.timeScale = 1;
         locked = false;    

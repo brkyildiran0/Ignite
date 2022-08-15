@@ -93,7 +93,7 @@ public class EnemyBehavior : MonoBehaviour
 
     IEnumerator RemoveRigidbodyWithDelay()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
 
         //Change enemy to normal
         isCauldron = false;
@@ -197,7 +197,7 @@ public class EnemyBehavior : MonoBehaviour
     IEnumerator WaitUntilTheAnimationEndsThenDeactivate()
     {
         hasTriggeredDeathAnimation = true;
-        yield return new WaitForSeconds(0.18f);
+        yield return new WaitForSecondsRealtime(0.18f);
         GetComponent<PooledObject>().Finish();
     }
 
