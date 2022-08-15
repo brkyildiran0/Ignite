@@ -2,10 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
     public LeaderBoard leaderboard;
+    public GameObject leaderboardUI;
+    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI descriptionText;
 
     [SerializeField] float runSpeed = 10.0f;
     [SerializeField] float floatingSpeed = 2f;
@@ -24,6 +28,8 @@ public class PlayerController : MonoBehaviour
 
     private float horizontal;
     private float vertical;
+
+    private bool restartGame = false;
 
     private bool locked = false;
     private bool isDeathSequenceTriggered = false;
@@ -44,6 +50,32 @@ public class PlayerController : MonoBehaviour
     {
         GainHP();
         slashingArea = GetComponentInChildren<CircleCollider2D>();
+        //ChangeLeaderboardVisibility(false);
+        leaderboardUI.SetActive(false);
+    }
+
+    private void ChangeLeaderboardVisibility(bool visible)
+    {
+        if (visible)
+        {
+            leaderboardUI.GetComponent<CanvasRenderer>().SetAlpha(1);
+            foreach (Transform child in leaderboardUI.transform)
+            {
+                child.GetComponent<CanvasRenderer>().SetAlpha(1);
+            }
+            nameText.alpha = 1;
+            descriptionText.alpha = 1;
+        }
+        else
+        {
+            leaderboardUI.GetComponent<CanvasRenderer>().SetAlpha(0);
+            foreach (Transform child in leaderboardUI.transform)
+            {
+                child.GetComponent<CanvasRenderer>().SetAlpha(0);
+            }
+            nameText.alpha = 0;
+            descriptionText.alpha = 0;
+        }
     }
 
     void Update()
@@ -58,7 +90,9 @@ public class PlayerController : MonoBehaviour
         if (currentHP == 0 && !isDeathSequenceTriggered)
         {
             isDeathSequenceTriggered = true;
-            Time.timeScale = 0;
+            //ChangeLeaderboardVisibility(true);
+            leaderboardUI.SetActive(true);
+            Time.timeScale = 0f;
 
             //Disable the components necessary
             POOL.SetActive(false);
@@ -71,13 +105,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void RestartGame()
+    {
+        restartGame = true;
+    }
+
+
     IEnumerator DeathSequence()
     {
         animator.Play("PlayerDeath");
 
-        yield return new WaitForSecondsRealtime(3f);
-
+        
+        yield return new WaitUntil(() => restartGame);
         yield return leaderboard.SubmitScoreRoutine(ScoreManager.score);
+
+        //ChangeLeaderboardVisibility(false);
+        leaderboardUI.SetActive(false);
+
+        restartGame = false;
 
         slashAnimator.Play("PlayerRevive");
         animator.Play("PlayerFront");
