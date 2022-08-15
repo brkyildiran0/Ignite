@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
         slashAnimator.Play("PlayerRevive");
         //StartCoroutine(DeathSequenceTwo());
         animator.Play("PlayerFront");
-        locked = false;
+        
 
         //Reset each element to its initial state.
         MANAGER_Spawn.SetActive(true);
@@ -81,6 +81,7 @@ public class PlayerController : MonoBehaviour
 
         Time.timeScale = 1;
         isDeathSequenceTriggered = false;
+        locked = false;
     }
 
     //IEnumerator DeathSequenceTwo()

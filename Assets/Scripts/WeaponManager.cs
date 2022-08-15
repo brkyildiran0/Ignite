@@ -85,21 +85,25 @@ public class WeaponManager : MonoBehaviour
                 swordCollider.offset = new Vector2(0, -13.5f);
                 swordCollider.size = new Vector2(4, 24);
                 decayIncreaseAmountUpdated = levelOneDecayIncrease;
+                swordAnimator.Play("Sword1");
                 break;
             case 2:
                 swordCollider.offset = new Vector2(0f, -10f);
                 swordCollider.size = new Vector2(4f, 31f);
                 decayIncreaseAmountUpdated = levelTwoDecayIncrease;
+                swordAnimator.Play("Sword2");
                 break;
             case 3:
                 swordCollider.offset = new Vector2(0f, -6f);
                 swordCollider.size = new Vector2(4.5f, 39f);
                 decayIncreaseAmountUpdated = levelThreeDecayIncrease;
+                swordAnimator.Play("Sword3");
                 break;
             case 4:
                 swordCollider.offset = new Vector2(0f, -0.4f);
                 swordCollider.size = new Vector2(4.5f, 50f);
                 decayIncreaseAmountUpdated = levelFourDecayIncrease;
+                swordAnimator.Play("Sword4");
                 break;
         }
     }
