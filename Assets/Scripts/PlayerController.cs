@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI descriptionText;
 
+    [SerializeField] SpriteRenderer playerSprite;
     [SerializeField] float runSpeed = 10.0f;
     [SerializeField] float floatingSpeed = 2f;
     [SerializeField] float floatingAmount = 1f;
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip hitSFX;
     [SerializeField] AudioClip deadSFX;
+    [SerializeField] AudioClip reviveSFX;
 
     public static int currentHP = 0;
     
@@ -128,6 +130,7 @@ public class PlayerController : MonoBehaviour
 
         slashAnimator.Play("PlayerRevive");
         animator.Play("PlayerFront");
+        audioSource.PlayOneShot(reviveSFX, 0.5f);
         
 
         //Reset each element to its initial state.
@@ -157,19 +160,31 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.A))
             {
                 animator.Play("PlayerLeft");
+                playerBodySprite.rotation = Quaternion.Euler(0, 0, 10);
             }
             else if (Input.GetKey(KeyCode.W))
             {
                 animator.Play("PlayerBack");
+                playerBodySprite.rotation = Quaternion.Euler(0, 0, 0);
             }
             else if (Input.GetKey(KeyCode.S))
             {
                 animator.Play("PlayerFront");
+                playerBodySprite.rotation = Quaternion.Euler(0, 0, 0);
             }
             else if (Input.GetKey(KeyCode.D))
             {
                 animator.Play("PlayerRight");
+                playerBodySprite.rotation = Quaternion.Euler(0, 0, -10);
             }
+            else
+            {
+                playerBodySprite.rotation = Quaternion.Euler(0, 0, 0);
+            }
+        }
+        else
+        {
+            playerBodySprite.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 

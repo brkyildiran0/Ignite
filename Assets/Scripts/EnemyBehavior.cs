@@ -213,7 +213,7 @@ public class EnemyBehavior : MonoBehaviour
         //Player Collecting HP Enemy
         else if (collision.tag == "Player" && isPowerup)
         {
-            audioSource.PlayOneShot(HP_PickupSFX, 1f);
+            audioSource.PlayOneShot(HP_PickupSFX, 0.6f);
             player.GetComponent<PlayerController>().GainHP();
             isPowerup = false;
             GetComponent<PooledObject>().Finish();
