@@ -10,10 +10,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float floatingAmount = 1f;
     [SerializeField] Transform playerBodySprite;
     [SerializeField] Animator animator;
+    [SerializeField] Animator slashAnimator;
 
     public static int currentHP = 0;
     
     private Rigidbody2D body;
+    private CircleCollider2D slashingArea;
 
     private float horizontal;
     private float vertical;
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         GainHP();
+        slashingArea = GetComponentInChildren<CircleCollider2D>();
     }
 
     void Update()
@@ -99,13 +102,13 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator PlayerHitSequence()
     {
-        Time.timeScale = 0;
+        Time.timeScale = 0.2f;
         locked = true;
         animator.Play("PlayerHit");
-
-        //Slash around 
-
+        slashingArea.enabled = true;
+        slashAnimator.Play("SlashAround");
         yield return new WaitForSecondsRealtime(1f);
+        slashingArea.enabled = false;
         Time.timeScale = 1;
         locked = false;    
     }
