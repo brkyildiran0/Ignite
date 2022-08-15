@@ -119,7 +119,7 @@ public class WeaponManager : MonoBehaviour
             killCounter = 0;
             swordAnimator.ResetTrigger("upgrade");
             swordAnimator.SetTrigger("upgrade");
-            //Handle rigidbody change
+            ScoreManager.score += 100;
             isProtected = true;
             remainingProtectionDuration = weaponProtectionDurationInSeconds;
             decayAmountPerFixedTime = 0f;
@@ -130,7 +130,7 @@ public class WeaponManager : MonoBehaviour
             killCounter = 0;
             swordAnimator.ResetTrigger("upgrade");
             swordAnimator.SetTrigger("upgrade");
-            //Handle rigidbody change
+            ScoreManager.score += 250;
             isProtected = true;
             remainingProtectionDuration = weaponProtectionDurationInSeconds;
             decayAmountPerFixedTime = 0f;
@@ -141,7 +141,7 @@ public class WeaponManager : MonoBehaviour
             killCounter = 0;
             swordAnimator.ResetTrigger("upgrade");
             swordAnimator.SetTrigger("upgrade");
-            //Handle rigidbody change
+            ScoreManager.score += 600;
             isProtected = true;
             remainingProtectionDuration = weaponProtectionDurationInSeconds;
             decayAmountPerFixedTime = 0f;

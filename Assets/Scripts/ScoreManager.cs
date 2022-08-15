@@ -9,7 +9,7 @@ public class ScoreManager : MonoBehaviour
     public TMP_Text scoreText;
     public TMP_Text hiScoreText;
 
-    private int score = 0;
+    public static int score = 0;
     private int hiScore = 0;
 
     private float scoreDivider = 0;
