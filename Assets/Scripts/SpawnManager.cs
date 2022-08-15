@@ -51,7 +51,7 @@ public class SpawnManager : MonoBehaviour
         {
             DetermineSpawnPositions();
 
-            yield return new WaitForSecondsRealtime(spawnRate);
+            yield return new WaitForSeconds(spawnRate);
 
             ManageHordeGrowth();
         }

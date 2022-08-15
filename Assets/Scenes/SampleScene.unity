@@ -574,8 +574,20 @@ PrefabInstance:
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
+      propertyPath: levelOneDecayIncrease
+      value: 0.00015
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
+      propertyPath: levelTwoDecayIncrease
+      value: 0.00017
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
       propertyPath: thirdUpgradeThreshold
       value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
+      propertyPath: levelFourDecayIncrease
+      value: 0.00025
       objectReference: {fileID: 0}
     - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
       propertyPath: secondUpgradeThreshold
@@ -586,12 +598,20 @@ PrefabInstance:
       value: 0.002
       objectReference: {fileID: 0}
     - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
+      propertyPath: levelThreeDecayIncrease
+      value: 0.0002
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
       propertyPath: weaponProtectionDuration
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
       propertyPath: weaponDecaySpeedController
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
+      propertyPath: decayIncreaseAmountBaseValue
+      value: 0.00015
       objectReference: {fileID: 0}
     - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
       propertyPath: weaponDecayApplyFrequencyInSeconds

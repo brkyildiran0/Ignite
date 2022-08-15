@@ -9,7 +9,12 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] float weaponProtectionDurationInSeconds = 4f;
     [SerializeField] float protectionDecaySpeed = 2f;
     [SerializeField] float decayAmountPerFixedTime = 0.2f;
-    [SerializeField] float decayIncreaseAmount = 0.02f;
+    [SerializeField] float decayIncreaseAmountBaseValue = 0.02f;
+
+    [SerializeField] float levelOneDecayIncrease = 0.02f;
+    [SerializeField] float levelTwoDecayIncrease = 0.021f;
+    [SerializeField] float levelThreeDecayIncrease = 0.022f;
+    [SerializeField] float levelFourDecayIncrease = 0.023f;
 
     [Range(-1, 10000)]public static float killCounter = 0;
     public static int weaponLevel = 1;
@@ -21,20 +26,31 @@ public class WeaponManager : MonoBehaviour
     private BoxCollider2D swordCollider;
     private float remainingProtectionDuration;
     private bool isProtected = false;
+    private float decayIncreaseAmountUpdated;
 
     void Start()
     {
         swordAnimator = GetComponentInChildren<Animator>();
         swordCollider = GetComponent<BoxCollider2D>();
         remainingProtectionDuration = weaponProtectionDurationInSeconds;
+        decayIncreaseAmountUpdated = decayIncreaseAmountBaseValue;
     }
 
     void Update()
     {
         HandleProtection();
+        LimitDecayRate();
         HandleWeaponUpgrade();
         HandleWeaponDowngrade();
         HandleWeaponHitbox();
+    }
+
+    private void LimitDecayRate()
+    {
+        if (decayAmountPerFixedTime > 0.35f)
+        {
+            decayAmountPerFixedTime = 0.35f;
+        }
     }
 
     /*
@@ -52,18 +68,22 @@ public class WeaponManager : MonoBehaviour
             case 1:
                 swordCollider.offset = new Vector2(0, -13.5f);
                 swordCollider.size = new Vector2(4, 24);
+                decayIncreaseAmountUpdated = levelOneDecayIncrease;
                 break;
             case 2:
                 swordCollider.offset = new Vector2(0f, -10f);
                 swordCollider.size = new Vector2(4f, 31f);
+                decayIncreaseAmountUpdated = levelTwoDecayIncrease;
                 break;
             case 3:
                 swordCollider.offset = new Vector2(0f, -6f);
                 swordCollider.size = new Vector2(4.5f, 39f);
+                decayIncreaseAmountUpdated = levelThreeDecayIncrease;
                 break;
             case 4:
                 swordCollider.offset = new Vector2(0f, -0.4f);
                 swordCollider.size = new Vector2(4.5f, 50f);
+                decayIncreaseAmountUpdated = levelFourDecayIncrease;
                 break;
         }
     }
@@ -72,7 +92,7 @@ public class WeaponManager : MonoBehaviour
     {
         if (!isProtected)
         {
-            decayAmountPerFixedTime += decayIncreaseAmount;
+            decayAmountPerFixedTime += decayIncreaseAmountUpdated;
             killCounter = killCounter - decayAmountPerFixedTime;
         }
     }
