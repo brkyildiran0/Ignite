@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public LeaderBoard leaderboard;
+
     [SerializeField] float runSpeed = 10.0f;
     [SerializeField] float floatingSpeed = 2f;
     [SerializeField] float floatingAmount = 1f;
@@ -72,7 +74,11 @@ public class PlayerController : MonoBehaviour
     IEnumerator DeathSequence()
     {
         animator.Play("PlayerDeath");
+
         yield return new WaitForSecondsRealtime(3f);
+
+        yield return leaderboard.SubmitScoreRoutine(ScoreManager.score);
+
         slashAnimator.Play("PlayerRevive");
         animator.Play("PlayerFront");
         
