@@ -171,12 +171,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43c37268145e3534299a169b91f92734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leaderboard: {fileID: 0}
+  leaderboardUI: {fileID: 0}
+  nameText: {fileID: 0}
+  descriptionText: {fileID: 0}
   runSpeed: 40
   floatingSpeed: 1.25
   floatingAmount: 1
   playerBodySprite: {fileID: 4328345701399715288}
   animator: {fileID: 895955542064610029}
   slashAnimator: {fileID: 3692477413734363935}
+  audioSource: {fileID: 0}
+  hitSFX: {fileID: 0}
+  deadSFX: {fileID: 0}
+  POOL: {fileID: 0}
+  MANAGER_Spawn: {fileID: 0}
+  Sword: {fileID: 0}
+  spawnManager: {fileID: 0}
 --- !u!50 &3143485023522147881
 Rigidbody2D:
   serializedVersion: 4
@@ -211,7 +222,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.07363737, y: 0.018882155}
+  m_Offset: {x: -0.08923572, y: 0.0032838583}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -222,7 +233,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2914894, y: 2.5061848}
+  m_Size: {x: 1.8842221, y: 3.7228467}
   m_EdgeRadius: 0
 --- !u!1 &4158222579510094885
 GameObject:

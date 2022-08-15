@@ -269,10 +269,10 @@ MonoBehaviour:
   enemySprite3: {fileID: 21300000, guid: ef42be8791d007e4882dd501c7d387ae, type: 3}
   cauldronEnemySprite: {fileID: 21300000, guid: 5e539074114c52446997db14a48675e3, type: 3}
   powerupSprite: {fileID: 21300000, guid: 7e12a9fa048e3b242a4598ee663df31f, type: 3}
-  cauldronSpawnChancePercentage: 10
-  powerupSpawnChancePercentage: 20
+  cauldronSpawnChancePercentage: 6
+  powerupSpawnChancePercentage: 50
   cauldronEnemyKnockbackForce: 200
-  swordKnockbackForce: 200
+  swordKnockbackForce: 280
   killWeaponContribution: 7.5
   blinkingDurationBeforeSpawn: 2
   blinkingTimeAdjuster: 100

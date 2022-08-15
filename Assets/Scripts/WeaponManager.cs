@@ -84,26 +84,26 @@ public class WeaponManager : MonoBehaviour
         switch (weaponLevel)
         {
             case 1:
-                swordCollider.offset = new Vector2(0, -13.5f);
-                swordCollider.size = new Vector2(4, 24);
+                swordCollider.offset = new Vector2(0, -10.65f);
+                swordCollider.size = new Vector2(4, 18.3f);
                 decayIncreaseAmountUpdated = levelOneDecayIncrease;
                 swordAnimator.Play("Sword1");
                 break;
             case 2:
-                swordCollider.offset = new Vector2(0f, -10f);
-                swordCollider.size = new Vector2(4f, 31f);
+                swordCollider.offset = new Vector2(0f, -7.38f);
+                swordCollider.size = new Vector2(4f, 24.83f);
                 decayIncreaseAmountUpdated = levelTwoDecayIncrease;
                 swordAnimator.Play("Sword2");
                 break;
             case 3:
-                swordCollider.offset = new Vector2(0f, -6f);
-                swordCollider.size = new Vector2(4.5f, 39f);
+                swordCollider.offset = new Vector2(-0.14f, -3.10f);
+                swordCollider.size = new Vector2(4.7f, 32.64f);
                 decayIncreaseAmountUpdated = levelThreeDecayIncrease;
                 swordAnimator.Play("Sword3");
                 break;
             case 4:
-                swordCollider.offset = new Vector2(0f, -0.4f);
-                swordCollider.size = new Vector2(4.5f, 50f);
+                swordCollider.offset = new Vector2(-0.14f, 2.12f);
+                swordCollider.size = new Vector2(4.7f, 43.09f);
                 decayIncreaseAmountUpdated = levelFourDecayIncrease;
                 swordAnimator.Play("Sword4");
                 break;
@@ -166,7 +166,7 @@ public class WeaponManager : MonoBehaviour
             killCounter = 0;
             swordAnimator.ResetTrigger("upgrade");
             swordAnimator.SetTrigger("upgrade");
-            ScoreManager.score += 100;
+            ScoreManager.score += 200;
             isProtected = true;
             remainingProtectionDuration = weaponProtectionDurationInSeconds;
             decayAmountPerFixedTime = 0f;
@@ -179,7 +179,7 @@ public class WeaponManager : MonoBehaviour
             killCounter = 0;
             swordAnimator.ResetTrigger("upgrade");
             swordAnimator.SetTrigger("upgrade");
-            ScoreManager.score += 250;
+            ScoreManager.score += 500;
             isProtected = true;
             remainingProtectionDuration = weaponProtectionDurationInSeconds;
             decayAmountPerFixedTime = 0f;
@@ -192,7 +192,7 @@ public class WeaponManager : MonoBehaviour
             killCounter = 0;
             swordAnimator.ResetTrigger("upgrade");
             swordAnimator.SetTrigger("upgrade");
-            ScoreManager.score += 600;
+            ScoreManager.score += 1250;
             isProtected = true;
             remainingProtectionDuration = weaponProtectionDurationInSeconds;
             decayAmountPerFixedTime = 0f;

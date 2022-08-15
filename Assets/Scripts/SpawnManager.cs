@@ -108,11 +108,22 @@ public class SpawnManager : MonoBehaviour
             float randomXaxis_5 = UnityEngine.Random.Range(-80f, 80f);
             float randomYaxis_5 = UnityEngine.Random.Range(-37.5f, 37.5f);
 
-            if (enemy_1.GetComponent<EnemyBehavior>().isPowerup) enemy_1.transform.position = new Vector2(randomXaxis_5, randomYaxis_5);
-            if (enemy_2.GetComponent<EnemyBehavior>().isPowerup) enemy_2.transform.position = new Vector2(randomXaxis_5, randomYaxis_5);
-            if (enemy_3.GetComponent<EnemyBehavior>().isPowerup) enemy_3.transform.position = new Vector2(randomXaxis_5, randomYaxis_5);
-            if (enemy_4.GetComponent<EnemyBehavior>().isPowerup) enemy_4.transform.position = new Vector2(randomXaxis_5, randomYaxis_5);
-
+            if (enemy_1.GetComponent<EnemyBehavior>().isPowerup)
+            {
+                enemy_1.transform.position = new Vector2(randomXaxis_5, randomYaxis_5);
+            }
+            else if (enemy_2.GetComponent<EnemyBehavior>().isPowerup)
+            {
+                enemy_2.transform.position = new Vector2(randomXaxis_5, randomYaxis_5);
+            }
+            else if (enemy_3.GetComponent<EnemyBehavior>().isPowerup)
+            {
+                enemy_3.transform.position = new Vector2(randomXaxis_5, randomYaxis_5);
+            }
+            else if (enemy_4.GetComponent<EnemyBehavior>().isPowerup)
+            {
+                enemy_4.transform.position = new Vector2(randomXaxis_5, randomYaxis_5);
+            }
         }
     }
 

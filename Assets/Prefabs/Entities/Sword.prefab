@@ -199,7 +199,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -13.5}
+  m_Offset: {x: -0.10377383, y: -10.898345}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -210,7 +210,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4, y: 24}
+  m_Size: {x: 3.5739264, y: 17.881388}
   m_EdgeRadius: 0
 --- !u!114 &2371441311925989087
 MonoBehaviour:
@@ -225,7 +225,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   child: {fileID: 1074023186274599247}
-  weaponProtectionDurationInSeconds: 4
+  weaponProtectionDurationInSeconds: 1.5
   protectionDecaySpeed: 2
   decayAmountPerFixedTime: 0.2
-  decayIncreaseAmount: 0.02
+  maxDecayForLevelOne: 0.23
+  maxDecayForLevelTwo: 0.27
+  maxDecayForLevelThree: 0.3
+  maxDecayForLevelFour: 0.35
+  levelOneDecayIncrease: 0.02
+  levelTwoDecayIncrease: 0.022
+  levelThreeDecayIncrease: 0.023
+  levelFourDecayIncrease: 0.024
+  spawner: {fileID: 0}
