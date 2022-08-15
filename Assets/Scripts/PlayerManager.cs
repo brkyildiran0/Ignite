@@ -48,7 +48,7 @@ public class PlayerManager : MonoBehaviour
             }
             else
             {
-                print("Session start failed.");
+                print("Session start failed." + response.Error);
                 done = true;
             }
         });
