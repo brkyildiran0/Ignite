@@ -39,6 +39,11 @@ public class SpawnManager : MonoBehaviour
 
     public PooledObject basicEnemy;
 
+    private void Awake()
+    {
+        SetSpawnBoundaries();
+    }
+
     private void Start()
     {
         SetSpawnBoundaries();
@@ -52,7 +57,7 @@ public class SpawnManager : MonoBehaviour
 
     private void OnEnable()
     {
-        spawnRate = 5;
+        spawnRate = 4;
         hordePopulation = 1;
         hordeGrowLimiter = 3;
         hordeGrowObserver = 0;
@@ -104,9 +109,9 @@ public class SpawnManager : MonoBehaviour
             float randomYaxis_5 = UnityEngine.Random.Range(-37.5f, 37.5f);
 
             if (enemy_1.GetComponent<EnemyBehavior>().isPowerup) enemy_1.transform.position = new Vector2(randomXaxis_5, randomYaxis_5);
-            if (enemy_2.GetComponent<EnemyBehavior>().isPowerup) enemy_1.transform.position = new Vector2(randomXaxis_5, randomYaxis_5);
-            if (enemy_3.GetComponent<EnemyBehavior>().isPowerup) enemy_1.transform.position = new Vector2(randomXaxis_5, randomYaxis_5);
-            if (enemy_4.GetComponent<EnemyBehavior>().isPowerup) enemy_1.transform.position = new Vector2(randomXaxis_5, randomYaxis_5);
+            if (enemy_2.GetComponent<EnemyBehavior>().isPowerup) enemy_2.transform.position = new Vector2(randomXaxis_5, randomYaxis_5);
+            if (enemy_3.GetComponent<EnemyBehavior>().isPowerup) enemy_3.transform.position = new Vector2(randomXaxis_5, randomYaxis_5);
+            if (enemy_4.GetComponent<EnemyBehavior>().isPowerup) enemy_4.transform.position = new Vector2(randomXaxis_5, randomYaxis_5);
 
         }
     }

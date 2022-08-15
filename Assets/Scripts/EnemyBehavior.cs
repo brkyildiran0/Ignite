@@ -11,6 +11,10 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] float enemyMovementSpeed;
     [SerializeField] float floatingSpeed;
     [SerializeField] float floatingAmount;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip enemyDeathSFX;
+    [SerializeField] AudioClip cauldronBreakSFX;
+    [SerializeField] AudioClip HP_PickupSFX;
     [SerializeField] Sprite enemySprite1;
     [SerializeField] Sprite enemySprite2;
     [SerializeField] Sprite enemySprite3;
@@ -134,6 +138,8 @@ public class EnemyBehavior : MonoBehaviour
             Rigidbody2D swordRb = collision.gameObject.GetComponent<Rigidbody2D>();
             swordRb.AddForceAtPosition(-swordRb.velocity * swordKnockbackForce, collision.transform.position);
 
+            audioSource.PlayOneShot(cauldronBreakSFX, 0.7f);
+
             if (!spriteRenderer.flipX)
             {
                 effectsChildAnimator.transform.GetComponent<SpriteRenderer>().flipX = false;
@@ -180,6 +186,7 @@ public class EnemyBehavior : MonoBehaviour
                 shadowHoldingChildSpriteRenderer.enabled = false;
                 if (isActiveAndEnabled)
                 {
+                    audioSource.PlayOneShot(enemyDeathSFX, 0.6f);
                     StartCoroutine(WaitUntilTheAnimationEndsThenDeactivate());
                 }
             }
@@ -199,6 +206,7 @@ public class EnemyBehavior : MonoBehaviour
         //Player Collecting HP Enemy
         else if (collision.tag == "Player" && isPowerup)
         {
+            audioSource.PlayOneShot(HP_PickupSFX, 1f);
             player.GetComponent<PlayerController>().GainHP();
             isPowerup = false;
             GetComponent<PooledObject>().Finish();
@@ -210,7 +218,8 @@ public class EnemyBehavior : MonoBehaviour
     IEnumerator WaitUntilTheAnimationEndsThenDeactivate()
     {
         hasTriggeredDeathAnimation = true;
-        yield return new WaitForSecondsRealtime(0.183f);
+        yield return new WaitForSecondsRealtime(0.184f);
+        effectsChildAnimator.Play("Placeholder");
         GetComponent<PooledObject>().Finish();
     }
 

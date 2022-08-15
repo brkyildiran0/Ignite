@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform playerBodySprite;
     [SerializeField] Animator animator;
     [SerializeField] Animator slashAnimator;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip hitSFX;
+    [SerializeField] AudioClip deadSFX;
 
     public static int currentHP = 0;
     
@@ -61,6 +64,7 @@ public class PlayerController : MonoBehaviour
             Sword.SetActive(false);
             locked = true;
 
+            audioSource.PlayOneShot(deadSFX, 0.3f); 
             StartCoroutine(DeathSequence());
         }
     }
@@ -70,7 +74,6 @@ public class PlayerController : MonoBehaviour
         animator.Play("PlayerDeath");
         yield return new WaitForSecondsRealtime(3f);
         slashAnimator.Play("PlayerRevive");
-        //StartCoroutine(DeathSequenceTwo());
         animator.Play("PlayerFront");
         
 
@@ -85,24 +88,6 @@ public class PlayerController : MonoBehaviour
         isDeathSequenceTriggered = false;
         locked = false;
     }
-
-    //IEnumerator DeathSequenceTwo()
-    //{
-    //    yield return new WaitForSecondsRealtime(1f);
-        
-    //    animator.Play("PlayerFront");
-    //    locked = false;
-
-    //    //Reset each element to its initial state.
-    //    MANAGER_Spawn.SetActive(true);
-    //    POOL.SetActive(true);
-    //    Sword.SetActive(true);
-    //    ScoreManager.ResetScore();
-    //    GainHP();
-        
-    //    Time.timeScale = 1;
-    //    isDeathSequenceTriggered = false;
-    //}
 
     void FixedUpdate()
     {
@@ -163,6 +148,7 @@ public class PlayerController : MonoBehaviour
             HealthLanternManager.LoseHP();
             if (currentHP > 0)
             {
+                audioSource.PlayOneShot(hitSFX, 1f);
                 StartCoroutine(PlayerHitSequence());
                 spawnManager.DecreaseHordeByOne();
             }
