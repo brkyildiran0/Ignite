@@ -157,7 +157,7 @@ public class WeaponManager : MonoBehaviour
             remainingProtectionDuration = weaponProtectionDurationInSeconds;
             decayAmountPerFixedTime = 0f;
 
-            spawner.DecreaseHordeByOne();
+            //spawner.DecreaseHordeByOne();
         }
     }
 
