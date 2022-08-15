@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     public static int currentHP = 0;
     
     private Rigidbody2D body;
-    private BoxCollider2D collider;
+    private BoxCollider2D boxCollider;
     private CircleCollider2D slashingArea;
 
     private float horizontal;
@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
-        collider = GetComponent<BoxCollider2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
     }
 
     void Start()
@@ -197,7 +197,7 @@ public class PlayerController : MonoBehaviour
     {
         if (currentHP > 0)
         {
-            collider.enabled = false;
+            boxCollider.enabled = false;
             currentHP--;
             HealthLanternManager.LoseHP();
             if (currentHP > 0)
@@ -206,26 +206,21 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(PlayerHitSequence());
                 spawnManager.DecreaseHordeByOne();
             }
-            else if (currentHP == 0)
-            {
-
-            }
-            collider.enabled = true;
+            boxCollider.enabled = true;
         }
     }
 
     IEnumerator PlayerHitSequence()
     {
+        slashingArea.enabled = true;
         Time.timeScale = 0f;
-
         locked = true;
         animator.Play("PlayerHit");
-        slashingArea.enabled = true;
         slashAnimator.Play("SlashAround");
         yield return new WaitForSecondsRealtime(1f);
-        slashingArea.enabled = false;
-
         Time.timeScale = 1;
+        yield return new WaitForSecondsRealtime(0.1f);
+        slashingArea.enabled = false;
         locked = false;
     }
 }

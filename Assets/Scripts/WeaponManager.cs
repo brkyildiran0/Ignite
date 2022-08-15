@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip weaponLevelUpSFX;
+
     [SerializeField] Transform child;
     [SerializeField] float weaponProtectionDurationInSeconds = 4f;
     [SerializeField] float protectionDecaySpeed = 2f;
@@ -170,6 +173,8 @@ public class WeaponManager : MonoBehaviour
             isProtected = true;
             remainingProtectionDuration = weaponProtectionDurationInSeconds;
             decayAmountPerFixedTime = 0f;
+            audioSource.PlayOneShot(weaponLevelUpSFX, 0.4f);
+
 
             spawner.DecreaseHordeByOne();
         }
@@ -183,6 +188,8 @@ public class WeaponManager : MonoBehaviour
             isProtected = true;
             remainingProtectionDuration = weaponProtectionDurationInSeconds;
             decayAmountPerFixedTime = 0f;
+            audioSource.PlayOneShot(weaponLevelUpSFX, 0.4f);
+
 
             spawner.DecreaseHordeByOne();
         }
@@ -196,6 +203,7 @@ public class WeaponManager : MonoBehaviour
             isProtected = true;
             remainingProtectionDuration = weaponProtectionDurationInSeconds;
             decayAmountPerFixedTime = 0f;
+            audioSource.PlayOneShot(weaponLevelUpSFX, 0.4f);
 
             spawner.DecreaseHordeByOne();
         }
