@@ -54,7 +54,6 @@ public class PlayerController : MonoBehaviour
     {
         GainHP();
         slashingArea = GetComponentInChildren<CircleCollider2D>();
-        //ChangeLeaderboardVisibility(false);
         leaderboardUI.SetActive(false);
     }
 
@@ -234,7 +233,7 @@ public class PlayerController : MonoBehaviour
         slashAnimator.Play("SlashAround");
         yield return new WaitForSecondsRealtime(1f);
         Time.timeScale = 1;
-        yield return new WaitForSecondsRealtime(0.1f);
+        yield return new WaitForSecondsRealtime(0.2f);
         slashingArea.enabled = false;
         locked = false;
     }

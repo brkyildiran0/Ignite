@@ -1152,11 +1152,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
       propertyPath: maxDecayForLevelOne
-      value: 0.12
+      value: 0.11
       objectReference: {fileID: 0}
     - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
       propertyPath: maxDecayForLevelTwo
-      value: 0.18
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
       propertyPath: maxDecayForLevelFour
@@ -1164,7 +1164,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
       propertyPath: protectionDecaySpeed
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
       propertyPath: firstUpgradeThreshold
@@ -1172,11 +1172,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
       propertyPath: levelOneDecayIncrease
-      value: 0.000125
+      value: 0.00012
       objectReference: {fileID: 0}
     - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
       propertyPath: levelTwoDecayIncrease
-      value: 0.00019
+      value: 0.00018
       objectReference: {fileID: 0}
     - target: {fileID: 2371441311925989087, guid: 6e6bd46b6d840fd48982aff045960e68, type: 3}
       propertyPath: maxDecayForLevelThree
