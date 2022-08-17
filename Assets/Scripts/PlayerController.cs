@@ -37,6 +37,9 @@ public class PlayerController : MonoBehaviour
     private bool locked = false;
     private bool isDeathSequenceTriggered = false;
 
+    private bool hitSequenceComplete = false;
+    private bool hitSequenceOngoing = false;
+
     //-----------Used to disable during death & respawn-------------//
     [SerializeField] GameObject POOL;
     [SerializeField] GameObject MANAGER_Spawn;
@@ -93,7 +96,6 @@ public class PlayerController : MonoBehaviour
         if (currentHP == 0 && !isDeathSequenceTriggered)
         {
             isDeathSequenceTriggered = true;
-            //ChangeLeaderboardVisibility(true);
             leaderboardUI.SetActive(true);
             Time.timeScale = 0f;
 
@@ -142,6 +144,9 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 1;
         isDeathSequenceTriggered = false;
         locked = false;
+        boxCollider.enabled = true;
+        hitSequenceOngoing = false;
+        hitSequenceComplete = true;
     }
 
     void FixedUpdate()
@@ -209,32 +214,53 @@ public class PlayerController : MonoBehaviour
 
     public void LoseHP()
     {
-        if (currentHP > 0)
+        if (currentHP > 0 && !hitSequenceOngoing)
         {
-            boxCollider.enabled = false;
+            hitSequenceOngoing = true;
+
+            //Decrease HP by 1
             currentHP--;
             HealthLanternManager.LoseHP();
-            if (currentHP > 0)
+
+            hitSequenceComplete = false;
+
+            //Check whether the player died after HP loss
+            if (currentHP != 0)
             {
-                audioSource.PlayOneShot(hitSFX, 1f);
+                boxCollider.enabled = false;
                 StartCoroutine(PlayerHitSequence());
-                spawnManager.DecreaseHordeByOne();
             }
-            boxCollider.enabled = true;
+
+            StartCoroutine(WaitUntilHitSequenceEnds());
         }
+    }
+
+
+    IEnumerator WaitUntilHitSequenceEnds()
+    {
+        yield return new WaitUntil(() => hitSequenceComplete);
+        yield return new WaitForSeconds(0.04f);
+        boxCollider.enabled = true;
+        slashingArea.enabled = false;
+        locked = false;
+        hitSequenceOngoing = false;
     }
 
     IEnumerator PlayerHitSequence()
     {
+        locked = true;
+        audioSource.PlayOneShot(hitSFX, 1f);
         slashingArea.enabled = true;
+
         Time.timeScale = 0f;
         locked = true;
         animator.Play("PlayerHit");
         slashAnimator.Play("SlashAround");
         yield return new WaitForSecondsRealtime(1f);
         Time.timeScale = 1;
-        yield return new WaitForSecondsRealtime(0.2f);
-        slashingArea.enabled = false;
-        locked = false;
+        yield return new WaitForSecondsRealtime(0.4f);
+
+        animator.Play("PlayerFront");
+        hitSequenceComplete = true;
     }
 }

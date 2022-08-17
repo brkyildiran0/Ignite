@@ -49,10 +49,10 @@ public class HealthLanternManager : MonoBehaviour
             {
                 if (!isLanternBurning[i])
                 {
-                    lighten = false;
                     lanternAnimators[i].ResetTrigger("HP_Gain");
                     lanternAnimators[i].SetTrigger("HP_Gain");
                     isLanternBurning[i] = true;
+                    lighten = false;
                     return;
                 }
             }
@@ -64,10 +64,10 @@ public class HealthLanternManager : MonoBehaviour
             {
                 if (isLanternBurning[i])
                 {
-                    extinguish = false;
                     lanternAnimators[i].ResetTrigger("HP_Lose");
                     lanternAnimators[i].SetTrigger("HP_Lose");
                     isLanternBurning[i] = false;
+                    extinguish = false;
                     return;
                 }
             }

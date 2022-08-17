@@ -10,6 +10,7 @@ public class WeaponManager : MonoBehaviour
 
     [SerializeField] Transform child;
     [SerializeField] Animator swordAnimator;
+    [SerializeField] Rigidbody2D swordRigidbody;
 
     [SerializeField] SpawnManager spawner;
 
@@ -22,7 +23,11 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] float currentDecayPerFixedTime = 0.2f;
     [SerializeField] float initialDecayPerFixedTime = 0.2f;
     [SerializeField] float decayIncreasePerFixedTime = 0.0002f;
-    [SerializeField] float maxDecayRatePerFixedTime = 0.35f;
+
+    [SerializeField] float maxDecayRatePerFixedTime_levelOne = 0.25f;
+    [SerializeField] float maxDecayRatePerFixedTime_levelTwo = 0.33f;
+    [SerializeField] float maxDecayRatePerFixedTime_levelThree = 0.4f;
+    [SerializeField] float maxDecayRatePerFixedTime_levelFour = 0.5f;
 
     private float remainingDecayProtectionDuration;
     private bool isProtected = true;
@@ -50,7 +55,6 @@ public class WeaponManager : MonoBehaviour
         ProtectKillCounter();
         HandleDecayProtection();
         HandleWeaponChange();
-        print(killCounter);
     }
 
     private void ProtectKillCounter()
@@ -76,9 +80,20 @@ public class WeaponManager : MonoBehaviour
     {
         if (!isProtected)
         {
-            if (currentDecayPerFixedTime < maxDecayRatePerFixedTime)
+            switch (weaponLevel)
             {
-                currentDecayPerFixedTime += decayIncreasePerFixedTime;
+                case 1:
+                    if (currentDecayPerFixedTime < maxDecayRatePerFixedTime_levelOne) currentDecayPerFixedTime += decayIncreasePerFixedTime;
+                    break;
+                case 2:
+                    if (currentDecayPerFixedTime < maxDecayRatePerFixedTime_levelTwo) currentDecayPerFixedTime += decayIncreasePerFixedTime;
+                    break;
+                case 3:
+                    if (currentDecayPerFixedTime < maxDecayRatePerFixedTime_levelThree) currentDecayPerFixedTime += decayIncreasePerFixedTime;
+                    break;
+                case 4:
+                    if (currentDecayPerFixedTime < maxDecayRatePerFixedTime_levelFour) currentDecayPerFixedTime += decayIncreasePerFixedTime;
+                    break;
             }
             killCounter -= currentDecayPerFixedTime;
         }
@@ -107,6 +122,7 @@ public class WeaponManager : MonoBehaviour
 
     private void HandleWeaponUpgradeAndDowngrade()
     {
+        //UPGRADE
         if (weaponLevel == 1 && killCounter > firstUpgradeThreshold)
         {
             UpgradeWeaponAndGiveScore(200);
@@ -131,6 +147,7 @@ public class WeaponManager : MonoBehaviour
             currentDecayPerFixedTime = initialDecayPerFixedTime;
             audioSource.PlayOneShot(weaponLevelUpSFX, 0.4f);
         }
+
         //DOWNGRADE
         else if (killCounter < 0 && weaponLevel != 1)
         {
@@ -156,6 +173,9 @@ public class WeaponManager : MonoBehaviour
         swordAnimator.ResetTrigger("upgrade");
         swordAnimator.SetTrigger("upgrade");
         ScoreManager.score += pointContribution;
+
+        //Test feature.
+        SpawnManager.DecreaseAmountOfEnemiesToBeSpawnedByOne();
     }
 
     private void AdjustWeaponProperties()
@@ -165,22 +185,26 @@ public class WeaponManager : MonoBehaviour
             case 1:
                 swordCollider.offset = new Vector2(0, -10.65f);
                 swordCollider.size = new Vector2(4, 18.3f);
+                swordRigidbody.mass = 0.7f;
                 swordAnimator.Play("Sword1");
                 break;
             case 2:
                 swordCollider.offset = new Vector2(0f, -7.38f);
                 swordCollider.size = new Vector2(4f, 24.83f);
+                swordRigidbody.mass = 0.6f;
                 swordAnimator.Play("Sword2");
                 break;
             case 3:
                 swordCollider.offset = new Vector2(-0.14f, -3.10f);
                 swordCollider.size = new Vector2(4.7f, 32.64f);
                 swordAnimator.Play("Sword3");
+                swordRigidbody.mass = 0.4f;
                 break;
             case 4:
                 swordCollider.offset = new Vector2(-0.14f, 2.12f);
                 swordCollider.size = new Vector2(4.7f, 43.09f);
                 swordAnimator.Play("Sword4");
+                swordRigidbody.mass = 0.2f;
                 break;
         }
     }
@@ -192,13 +216,3 @@ public class WeaponManager : MonoBehaviour
         currentDecayPerFixedTime = 0f;
     }
 }
-
-
-
-/*
-*                       offset         size
-* Weapon 1 Dimensions:  0,-13.5        4,24
-* Weapon 2 Dimensions:  0,-10          4,31
-* Weapon 3 Dimensions:  0,-6           4.5,39
-* Weapon 4 Dimensions:  0,-0.4         4.5,50
-*/

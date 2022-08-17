@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    [SerializeField] PooledObject enemyPooledObject;
+
     private Vector3 bottomLeftBorder_1;
     private Vector3 topRightBorder_1;
     private float randomXaxis_1;
@@ -29,24 +31,19 @@ public class SpawnManager : MonoBehaviour
     private float randomYaxis_4;
     private Vector3 randomSpawnPosition_4;
 
-    public static float spawnRate = 4f;
-    public int hordePopulation = 1;
-
     //Controls how many waves are necessary to increment the spawned enemies at once for each spawn position
-    public int hordeGrowLimiter = 3;
+    public float timeBetweenEachWave = 8f;
 
-    private int hordeGrowObserver = 0;
-
-    public PooledObject basicEnemy;
+    public static int numberOfEnemiesToSpawn_dividedByFour = 1;
 
     private void Awake()
     {
         SetSpawnBoundaries();
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        SetSpawnBoundaries();
+        ResetSpawnParameters();
         StartCoroutine(Spawn());
     }
 
@@ -55,14 +52,10 @@ public class SpawnManager : MonoBehaviour
         StopCoroutine(Spawn());
     }
 
-    private void OnEnable()
+
+    private void ResetSpawnParameters()
     {
-        spawnRate = 4;
-        hordePopulation = 1;
-        hordeGrowLimiter = 3;
-        hordeGrowObserver = 0;
-        SetSpawnBoundaries();
-        StartCoroutine(Spawn());
+        numberOfEnemiesToSpawn_dividedByFour = 1;
     }
 
     IEnumerator Spawn()
@@ -72,8 +65,8 @@ public class SpawnManager : MonoBehaviour
             while (true)
             {
                 SpawnAtRandomPositions();
-                yield return new WaitForSeconds(spawnRate);
-                ManageHordeGrowth();
+                numberOfEnemiesToSpawn_dividedByFour++;
+                yield return new WaitForSeconds(timeBetweenEachWave);
             }
         }
     }
@@ -81,7 +74,7 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnAtRandomPositions()
     {
-        for (int i = 0; i < hordePopulation; i++)
+        for (int i = 0; i < numberOfEnemiesToSpawn_dividedByFour; i++)
         {
             randomXaxis_1 = UnityEngine.Random.Range(bottomLeftBorder_1.x, topRightBorder_1.x);
             randomYaxis_1 = UnityEngine.Random.Range(bottomLeftBorder_1.y, topRightBorder_1.y);
@@ -99,10 +92,10 @@ public class SpawnManager : MonoBehaviour
             randomYaxis_4 = UnityEngine.Random.Range(bottomLeftBorder_4.y, topRightBorder_4.y);
             randomSpawnPosition_4 = new Vector2(randomXaxis_4, randomYaxis_4);
 
-            PooledObject enemy_1 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_1, Quaternion.identity);
-            PooledObject enemy_2 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_2, Quaternion.identity);
-            PooledObject enemy_3 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_3, Quaternion.identity);
-            PooledObject enemy_4 = Pool.Instance.Spawn(basicEnemy, randomSpawnPosition_4, Quaternion.identity);
+            PooledObject enemy_1 = Pool.Instance.Spawn(enemyPooledObject, randomSpawnPosition_1, Quaternion.identity);
+            PooledObject enemy_2 = Pool.Instance.Spawn(enemyPooledObject, randomSpawnPosition_2, Quaternion.identity);
+            PooledObject enemy_3 = Pool.Instance.Spawn(enemyPooledObject, randomSpawnPosition_3, Quaternion.identity);
+            PooledObject enemy_4 = Pool.Instance.Spawn(enemyPooledObject, randomSpawnPosition_4, Quaternion.identity);
 
             //Power-up enemy relocation
             float randomXaxis_5 = UnityEngine.Random.Range(-80f, 80f);
@@ -146,23 +139,11 @@ public class SpawnManager : MonoBehaviour
         topRightBorder_4 = new Vector3(140, 60, 0);
     }
 
-    public void DecreaseHordeByOne()
+    public static void DecreaseAmountOfEnemiesToBeSpawnedByOne()
     {
-        hordeGrowObserver--;
-        hordePopulation--;
-        spawnRate--;
-    }
-
-    private void ManageHordeGrowth()
-    {
-        hordeGrowObserver++;
-
-        if (hordeGrowObserver == hordeGrowLimiter)
+        if (numberOfEnemiesToSpawn_dividedByFour > 5)
         {
-            hordePopulation++;
-            hordeGrowLimiter++;
-            spawnRate++;
-            hordeGrowObserver = 0;
+            numberOfEnemiesToSpawn_dividedByFour--;
         }
     }
 }

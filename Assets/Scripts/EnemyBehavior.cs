@@ -11,31 +11,35 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] float enemyMovementSpeed;
     [SerializeField] float floatingSpeed;
     [SerializeField] float floatingAmount;
+
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip enemyDeathSFX;
     [SerializeField] AudioClip cauldronBreakSFX;
     [SerializeField] AudioClip HP_PickupSFX;
+
     [SerializeField] Sprite enemySprite1;
     [SerializeField] Sprite enemySprite2;
     [SerializeField] Sprite enemySprite3;
     [SerializeField] Sprite cauldronEnemySprite;
     [SerializeField] Sprite powerupSprite;
+
     [SerializeField] int cauldronSpawnChancePercentage = 10;
     [SerializeField] int powerupSpawnChancePercentage = 25;
     [SerializeField] float cauldronEnemyKnockbackForce = 10f;
     [SerializeField] float swordKnockbackForce = 10f;
     [SerializeField] float killWeaponContribution = 7.5f;
-    [SerializeField] float blinkingDurationBeforeSpawn = 2.0f;
-    [SerializeField] float blinkingTimeAdjuster = 2.0f;
+
 
 
     private SpriteRenderer spriteRenderer;
     private Transform player;
     private BoxCollider2D enemyCollider;
+
     private int spriteRandomizer = 0;
     private int mirrorRandomizer = 0;
     private int cauldronRandomizer = 0;
     private int powerupRandomizer = 0;
+
     public bool isPowerup = false;
     private bool isCauldron = false;
     private bool rigidbodyExists = false;
@@ -50,6 +54,16 @@ public class EnemyBehavior : MonoBehaviour
         mirrorRandomizer = Random.Range(0, 2);
         cauldronRandomizer = Random.Range(0, cauldronSpawnChancePercentage);
         powerupRandomizer = Random.Range(0, powerupSpawnChancePercentage);
+    }
+
+    private void OnEnable()
+    {
+        spriteRenderer.enabled = true;
+        enemyCollider.enabled = true;
+        shadowHoldingChildSpriteRenderer.enabled = true;
+        hasTriggeredDeathAnimation = false;
+        RandomizeSprite();
+        StartCoroutine(MirrorSpriteRendererWithDelay());
     }
 
     void Update()
@@ -69,20 +83,10 @@ public class EnemyBehavior : MonoBehaviour
 
     IEnumerator DecayHPEnemy()
     {
-        yield return new WaitForSecondsRealtime(5f);
+        yield return new WaitForSeconds(5f);
 
         isPowerup = false;
         GetComponent<PooledObject>().Finish();
-    }
-
-    private void OnEnable()
-    {
-        spriteRenderer.enabled = true;
-        enemyCollider.enabled = true;
-        shadowHoldingChildSpriteRenderer.enabled = true;
-        hasTriggeredDeathAnimation = false;
-        RandomizeSprite();
-        StartCoroutine(MirrorSpriteRendererWithDelay());
     }
 
     private void HandleMovement()
@@ -200,6 +204,7 @@ public class EnemyBehavior : MonoBehaviour
 
             hasTriggeredDeathAnimation = false;
             WeaponManager.killCounter = WeaponManager.killCounter + killWeaponContribution;
+            GrantScoreOnDeath();
             return;
         }
 
@@ -283,5 +288,10 @@ public class EnemyBehavior : MonoBehaviour
                 spriteRenderer.flipX = false;
                 break;
         }
+    }
+
+    private void GrantScoreOnDeath()
+    {
+        ScoreManager.score += 10;
     }
 }
