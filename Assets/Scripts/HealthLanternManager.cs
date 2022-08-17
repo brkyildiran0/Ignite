@@ -45,7 +45,7 @@ public class HealthLanternManager : MonoBehaviour
     {
         if (lighten)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 2; i++)
             {
                 if (!isLanternBurning[i])
                 {
@@ -60,7 +60,7 @@ public class HealthLanternManager : MonoBehaviour
 
         if (extinguish)
         {
-            for (int i = 2; i >= 0; i--)
+            for (int i = 1; i >= 0; i--)
             {
                 if (isLanternBurning[i])
                 {

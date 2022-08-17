@@ -205,7 +205,7 @@ public class PlayerController : MonoBehaviour
 
     public void GainHP()
     {
-        if (currentHP < 3)
+        if (currentHP < 2)
         {
             currentHP++;
             HealthLanternManager.AddHP();
@@ -258,7 +258,7 @@ public class PlayerController : MonoBehaviour
         slashAnimator.Play("SlashAround");
         yield return new WaitForSecondsRealtime(1f);
         Time.timeScale = 1;
-        yield return new WaitForSecondsRealtime(0.4f);
+        yield return new WaitForSecondsRealtime(0.1f);
 
         animator.Play("PlayerFront");
         hitSequenceComplete = true;
