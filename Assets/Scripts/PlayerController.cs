@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AudioClip deadSFX;
     [SerializeField] AudioClip reviveSFX;
 
+    [SerializeField] Transform swordTransform;
+
     public static int currentHP = 0;
     
     private Rigidbody2D body;
@@ -40,11 +42,12 @@ public class PlayerController : MonoBehaviour
     private bool hitSequenceComplete = false;
     private bool hitSequenceOngoing = false;
 
+    private float timeAllowedOutside = 2.0f;
+
     //-----------Used to disable during death & respawn-------------//
     [SerializeField] GameObject POOL;
     [SerializeField] GameObject MANAGER_Spawn;
     [SerializeField] GameObject Sword;
-
     [SerializeField] SpawnManager spawnManager;
 
     void Awake()
@@ -60,35 +63,38 @@ public class PlayerController : MonoBehaviour
         leaderboardUI.SetActive(false);
     }
 
-    private void ChangeLeaderboardVisibility(bool visible)
-    {
-        if (visible)
-        {
-            leaderboardUI.GetComponent<CanvasRenderer>().SetAlpha(1);
-            foreach (Transform child in leaderboardUI.transform)
-            {
-                child.GetComponent<CanvasRenderer>().SetAlpha(1);
-            }
-            nameText.alpha = 1;
-            descriptionText.alpha = 1;
-        }
-        else
-        {
-            leaderboardUI.GetComponent<CanvasRenderer>().SetAlpha(0);
-            foreach (Transform child in leaderboardUI.transform)
-            {
-                child.GetComponent<CanvasRenderer>().SetAlpha(0);
-            }
-            nameText.alpha = 0;
-            descriptionText.alpha = 0;
-        }
-    }
-
     void Update()
     {
+        CheckPositionAndWarn();
         CheckHPDepleted();
         GetInput();
         HandleAnimation();
+    }
+
+    private void CheckPositionAndWarn()
+    {
+        if (transform.position.x < -110 || transform.position.x > 110 || transform.position.y  > 62.5f || transform.position.y < - 62.5f)
+        {
+            timeAllowedOutside -= Time.deltaTime;
+            print("Return back to center! Seconds left: " + timeAllowedOutside);
+            
+            if (timeAllowedOutside < 0)
+            {
+                while (currentHP != 0)
+                {
+                    LoseHP();
+                }
+                transform.position = new Vector2(0f, 0f);
+                swordTransform.position = new Vector2(0f, 22.5f);
+                swordTransform.rotation = Quaternion.Euler(0f, 0f, 0f);
+
+                timeAllowedOutside = 2f;
+            }
+        }
+        else
+        {
+            timeAllowedOutside = 2f;
+        }
     }
 
     private void CheckHPDepleted()
@@ -115,7 +121,6 @@ public class PlayerController : MonoBehaviour
         restartGame = true;
     }
 
-
     IEnumerator DeathSequence()
     {
         animator.Play("PlayerDeath");
@@ -124,7 +129,6 @@ public class PlayerController : MonoBehaviour
         yield return new WaitUntil(() => restartGame);
         yield return leaderboard.SubmitScoreRoutine(ScoreManager.score);
 
-        //ChangeLeaderboardVisibility(false);
         leaderboardUI.SetActive(false);
 
         restartGame = false;
