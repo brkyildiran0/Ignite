@@ -59,6 +59,7 @@ public class LeaderBoard : MonoBehaviour
                 done = true;
                 playerNames.text = tempPlayerNames;
                 playerScores.text = tempPlayerScores;
+                print("Fetched highscores successfully");
             }
             else
             {

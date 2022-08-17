@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour
 {
     public LeaderBoard leaderboard;
     public TMP_InputField playerNameInputField;
+    public bool sessionStarted = false;
 
     void Start()
     {
@@ -29,6 +30,14 @@ public class PlayerManager : MonoBehaviour
         });
     }
 
+    public void UpdateScoreboard()
+    {
+        if (sessionStarted)
+        {
+            StartCoroutine(leaderboard.FetchTopHighscoresRoutine());
+        }
+    }
+
     IEnumerator SetupRoutine()
     {
         yield return LoginRoutine();
@@ -45,6 +54,7 @@ public class PlayerManager : MonoBehaviour
                 print("Player logged in.");
                 PlayerPrefs.SetString("PlayerID", response.player_id.ToString());
                 done = true;
+                sessionStarted = true;
             }
             else
             {
