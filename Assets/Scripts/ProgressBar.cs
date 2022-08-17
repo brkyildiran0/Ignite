@@ -1,11 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ProgressBar : MonoBehaviour
 {
+    [SerializeField] WeaponManager weaponManager;
+
     public Slider slider;
     private Animator animator;
 
@@ -21,24 +20,29 @@ public class ProgressBar : MonoBehaviour
 
     private void Update()
     {
-        DetermineSliderLength();
+        SetSliderMaxValue();
+        SetSliderCurrentValue();
+    }
+
+    private void SetSliderCurrentValue()
+    {
         slider.value = WeaponManager.killCounter;
     }
 
-    private void DetermineSliderLength()
+    private void SetSliderMaxValue()
     {
-        switch (WeaponManager.weaponLevel)
+        switch (weaponManager.weaponLevel)
         {
             case 1:
-                slider.maxValue = WeaponManager.firstUpgradeThreshold;
+                slider.maxValue = weaponManager.firstUpgradeThreshold;
                 animator.SetBool("animate", false);
                 break;
             case 2:
-                slider.maxValue = WeaponManager.secondUpgradeThreshold;
+                slider.maxValue = weaponManager.secondUpgradeThreshold;
                 animator.SetBool("animate", false);
                 break;
             case 3:
-                slider.maxValue = WeaponManager.thirdUpgradeThreshold;
+                slider.maxValue = weaponManager.thirdUpgradeThreshold;
                 animator.SetBool("animate", true);
                 break;
             case 4:

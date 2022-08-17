@@ -9,216 +9,196 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] AudioClip weaponLevelUpSFX;
 
     [SerializeField] Transform child;
-    [SerializeField] float weaponProtectionDurationInSeconds = 4f;
-    [SerializeField] float protectionDecaySpeed = 2f;
-    [SerializeField] float decayAmountPerFixedTime = 0.2f;
-
-    [SerializeField] float maxDecayForLevelOne = 0.22f;
-    [SerializeField] float maxDecayForLevelTwo = 0.25f;
-    [SerializeField] float maxDecayForLevelThree = 0.27f;
-    [SerializeField] float maxDecayForLevelFour = 0.3f;
-
-    [SerializeField] float levelOneDecayIncrease = 0.02f;
-    [SerializeField] float levelTwoDecayIncrease = 0.021f;
-    [SerializeField] float levelThreeDecayIncrease = 0.022f;
-    [SerializeField] float levelFourDecayIncrease = 0.023f;
+    [SerializeField] Animator swordAnimator;
 
     [SerializeField] SpawnManager spawner;
 
-    [Range(-1, 10000)]public static float killCounter = 0;
-    public static int weaponLevel = 1;
-    public static int firstUpgradeThreshold = 100;
-    public static int secondUpgradeThreshold = 250;
-    public static int thirdUpgradeThreshold = 425;
+    public static float killCounter = 0;
+    public int weaponLevel = 1;
 
-    private Animator swordAnimator;
+    [SerializeField] float maxDecayProtectionDuration = 4f;
+    [SerializeField] float decayProtectionDecrementRate = 1f;
+
+    [SerializeField] float currentDecayPerFixedTime = 0.2f;
+    [SerializeField] float initialDecayPerFixedTime = 0.2f;
+    [SerializeField] float decayIncreasePerFixedTime = 0.0002f;
+    [SerializeField] float maxDecayRatePerFixedTime = 0.35f;
+
+    private float remainingDecayProtectionDuration;
+    private bool isProtected = true;
+
+    public int firstUpgradeThreshold = 50;
+    public int secondUpgradeThreshold = 200;
+    public int thirdUpgradeThreshold = 350;
+
     private BoxCollider2D swordCollider;
-    private float remainingProtectionDuration;
-    private bool isProtected = false;
-    private float decayIncreaseAmountUpdated;
 
-    void Start()
+    private void Awake()
     {
-        swordAnimator = GetComponentInChildren<Animator>();
         swordCollider = GetComponent<BoxCollider2D>();
-        remainingProtectionDuration = weaponProtectionDurationInSeconds;
-        decayIncreaseAmountUpdated = levelOneDecayIncrease;
+        remainingDecayProtectionDuration = maxDecayProtectionDuration;
+    }
+
+    private void OnEnable()
+    {
+        ResetSword();
+        TriggerWeaponDecayProtection();
     }
 
     void Update()
     {
-        HandleProtection();
-        LimitDecayRate();
-        HandleWeaponUpgrade();
-        HandleWeaponDowngrade();
-        HandleWeaponHitbox();
+        ProtectKillCounter();
+        HandleDecayProtection();
+        HandleWeaponChange();
+        print(killCounter);
     }
 
-    private void LimitDecayRate()
+    private void ProtectKillCounter()
     {
-        if (weaponLevel == 1 && decayAmountPerFixedTime > maxDecayForLevelOne)
+        if (killCounter < 0)
         {
-            decayAmountPerFixedTime = maxDecayForLevelOne;
-        }
-        else if (weaponLevel == 2 && decayAmountPerFixedTime > maxDecayForLevelTwo)
-        {
-            decayAmountPerFixedTime = maxDecayForLevelTwo;
-        }
-        else if (weaponLevel == 3 && decayAmountPerFixedTime > maxDecayForLevelThree)
-        {
-            decayAmountPerFixedTime = maxDecayForLevelThree;
-        }
-        else if (weaponLevel == 4 && decayAmountPerFixedTime > maxDecayForLevelFour)
-        {
-            decayAmountPerFixedTime = maxDecayForLevelFour;
-        }
-    }
-
-    /*
- *                       offset         size
- * Weapon 1 Dimensions:  0,-13.5        4,24
- * Weapon 2 Dimensions:  0,-10          4,31
- * Weapon 3 Dimensions:  0,-6           4.5,39
- * Weapon 4 Dimensions:  0,-0.4         4.5,50
- */
-
-    private void HandleWeaponHitbox()
-    {
-        switch (weaponLevel)
-        {
-            case 1:
-                swordCollider.offset = new Vector2(0, -10.65f);
-                swordCollider.size = new Vector2(4, 18.3f);
-                decayIncreaseAmountUpdated = levelOneDecayIncrease;
-                swordAnimator.Play("Sword1");
-                break;
-            case 2:
-                swordCollider.offset = new Vector2(0f, -7.38f);
-                swordCollider.size = new Vector2(4f, 24.83f);
-                decayIncreaseAmountUpdated = levelTwoDecayIncrease;
-                swordAnimator.Play("Sword2");
-                break;
-            case 3:
-                swordCollider.offset = new Vector2(-0.14f, -3.10f);
-                swordCollider.size = new Vector2(4.7f, 32.64f);
-                decayIncreaseAmountUpdated = levelThreeDecayIncrease;
-                swordAnimator.Play("Sword3");
-                break;
-            case 4:
-                swordCollider.offset = new Vector2(-0.14f, 2.12f);
-                swordCollider.size = new Vector2(4.7f, 43.09f);
-                decayIncreaseAmountUpdated = levelFourDecayIncrease;
-                swordAnimator.Play("Sword4");
-                break;
+            killCounter = -1;
         }
     }
 
     void FixedUpdate()
     {
+        DecayWeapon();
+    }
+
+    private void HandleWeaponChange()
+    {
+        HandleWeaponUpgradeAndDowngrade();
+        AdjustWeaponProperties();
+    }
+
+    private void DecayWeapon()
+    {
         if (!isProtected)
         {
-            decayAmountPerFixedTime += decayIncreaseAmountUpdated;
-            killCounter = killCounter - decayAmountPerFixedTime;
+            if (currentDecayPerFixedTime < maxDecayRatePerFixedTime)
+            {
+                currentDecayPerFixedTime += decayIncreasePerFixedTime;
+            }
+            killCounter -= currentDecayPerFixedTime;
         }
     }
 
-    private void OnEnable()
+    private void HandleDecayProtection()
     {
-        killCounter = 0;
-        ResetSword();
-        isProtected = true;
-        remainingProtectionDuration = weaponProtectionDurationInSeconds;
-        decayAmountPerFixedTime = 0f;
-    }
-
-    public void ResetSword()
-    {
-        while (weaponLevel != 1)
-        {
-            weaponLevel--;
-            killCounter = 0;
-            swordAnimator.ResetTrigger("downgrade");
-            swordAnimator.SetTrigger("downgrade");
-        }
-        isProtected = true;
-        remainingProtectionDuration = weaponProtectionDurationInSeconds;
-        decayAmountPerFixedTime = 0f;
-    }
-
-    private void HandleWeaponDowngrade()
-    {
-        if (killCounter < 0 && weaponLevel != 1)
-        {
-            weaponLevel--;
-            killCounter = 0;
-            swordAnimator.ResetTrigger("downgrade");
-            swordAnimator.SetTrigger("downgrade");
-            isProtected = true;
-            remainingProtectionDuration = weaponProtectionDurationInSeconds;
-            decayAmountPerFixedTime = 0f;
-
-            //spawner.DecreaseHordeByOne();
-        }
-    }
-
-    private void HandleWeaponUpgrade()
-    {
-        if (weaponLevel == 1 && killCounter > firstUpgradeThreshold)
-        {
-            weaponLevel++;
-            killCounter = 0;
-            swordAnimator.ResetTrigger("upgrade");
-            swordAnimator.SetTrigger("upgrade");
-            ScoreManager.score += 200;
-            isProtected = true;
-            remainingProtectionDuration = weaponProtectionDurationInSeconds;
-            decayAmountPerFixedTime = 0f;
-            audioSource.PlayOneShot(weaponLevelUpSFX, 0.4f);
-
-
-            spawner.DecreaseHordeByOne();
-        }
-        else if (weaponLevel == 2 && killCounter > secondUpgradeThreshold)
-        {
-            weaponLevel++;
-            killCounter = 0;
-            swordAnimator.ResetTrigger("upgrade");
-            swordAnimator.SetTrigger("upgrade");
-            ScoreManager.score += 500;
-            isProtected = true;
-            remainingProtectionDuration = weaponProtectionDurationInSeconds;
-            decayAmountPerFixedTime = 0f;
-            audioSource.PlayOneShot(weaponLevelUpSFX, 0.4f);
-
-
-            spawner.DecreaseHordeByOne();
-        }
-        else if (weaponLevel == 3 && killCounter > thirdUpgradeThreshold)
-        {
-            weaponLevel++;
-            killCounter = 0;
-            swordAnimator.ResetTrigger("upgrade");
-            swordAnimator.SetTrigger("upgrade");
-            ScoreManager.score += 1250;
-            isProtected = true;
-            remainingProtectionDuration = weaponProtectionDurationInSeconds;
-            decayAmountPerFixedTime = 0f;
-            audioSource.PlayOneShot(weaponLevelUpSFX, 0.4f);
-
-            spawner.DecreaseHordeByOne();
-        }
-    }
-
-    private void HandleProtection()
-    {
-        if (remainingProtectionDuration > 0f)
+        if (remainingDecayProtectionDuration > 0f)
         {
             isProtected = true;
-            remainingProtectionDuration -= Time.deltaTime * protectionDecaySpeed;
+            remainingDecayProtectionDuration -= Time.deltaTime * decayProtectionDecrementRate;
         }
         else
         {
             isProtected = false;
         }
     }
+
+    public void ResetSword()
+    {
+        weaponLevel = 1;
+        killCounter = 1;
+        AdjustWeaponProperties();
+        TriggerWeaponDecayProtection();
+    }
+
+    private void HandleWeaponUpgradeAndDowngrade()
+    {
+        if (weaponLevel == 1 && killCounter > firstUpgradeThreshold)
+        {
+            UpgradeWeaponAndGiveScore(200);
+            TriggerWeaponDecayProtection();
+
+            currentDecayPerFixedTime = initialDecayPerFixedTime;
+            audioSource.PlayOneShot(weaponLevelUpSFX, 0.4f);
+        }
+        else if (weaponLevel == 2 && killCounter > secondUpgradeThreshold)
+        {
+            UpgradeWeaponAndGiveScore(500);
+            TriggerWeaponDecayProtection();
+
+            currentDecayPerFixedTime = initialDecayPerFixedTime;
+            audioSource.PlayOneShot(weaponLevelUpSFX, 0.4f);
+        }
+        else if (weaponLevel == 3 && killCounter > thirdUpgradeThreshold)
+        {
+            UpgradeWeaponAndGiveScore(1250);
+            TriggerWeaponDecayProtection();
+
+            currentDecayPerFixedTime = initialDecayPerFixedTime;
+            audioSource.PlayOneShot(weaponLevelUpSFX, 0.4f);
+        }
+        //DOWNGRADE
+        else if (killCounter < 0 && weaponLevel != 1)
+        {
+            DowngradeWeapon();
+            TriggerWeaponDecayProtection();
+
+            currentDecayPerFixedTime = initialDecayPerFixedTime;
+        }
+    }
+
+    private void DowngradeWeapon()
+    {
+        weaponLevel--;
+        killCounter = 1;
+        swordAnimator.ResetTrigger("downgrade");
+        swordAnimator.SetTrigger("downgrade");
+    }
+
+    private void UpgradeWeaponAndGiveScore(int pointContribution)
+    {
+        weaponLevel++;
+        killCounter = 1;
+        swordAnimator.ResetTrigger("upgrade");
+        swordAnimator.SetTrigger("upgrade");
+        ScoreManager.score += pointContribution;
+    }
+
+    private void AdjustWeaponProperties()
+    {
+        switch (weaponLevel)
+        {
+            case 1:
+                swordCollider.offset = new Vector2(0, -10.65f);
+                swordCollider.size = new Vector2(4, 18.3f);
+                swordAnimator.Play("Sword1");
+                break;
+            case 2:
+                swordCollider.offset = new Vector2(0f, -7.38f);
+                swordCollider.size = new Vector2(4f, 24.83f);
+                swordAnimator.Play("Sword2");
+                break;
+            case 3:
+                swordCollider.offset = new Vector2(-0.14f, -3.10f);
+                swordCollider.size = new Vector2(4.7f, 32.64f);
+                swordAnimator.Play("Sword3");
+                break;
+            case 4:
+                swordCollider.offset = new Vector2(-0.14f, 2.12f);
+                swordCollider.size = new Vector2(4.7f, 43.09f);
+                swordAnimator.Play("Sword4");
+                break;
+        }
+    }
+
+    private void TriggerWeaponDecayProtection()
+    {
+        isProtected = true;
+        remainingDecayProtectionDuration = maxDecayProtectionDuration;
+        currentDecayPerFixedTime = 0f;
+    }
 }
+
+
+
+/*
+*                       offset         size
+* Weapon 1 Dimensions:  0,-13.5        4,24
+* Weapon 2 Dimensions:  0,-10          4,31
+* Weapon 3 Dimensions:  0,-6           4.5,39
+* Weapon 4 Dimensions:  0,-0.4         4.5,50
+*/

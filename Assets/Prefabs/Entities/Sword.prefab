@@ -228,18 +228,17 @@ MonoBehaviour:
   audioSource: {fileID: -9206305234511002271}
   weaponLevelUpSFX: {fileID: 8300000, guid: 1e9ca2757a51c0948b753b956cc89b31, type: 3}
   child: {fileID: 1074023186274599247}
-  weaponProtectionDurationInSeconds: 1.5
-  protectionDecaySpeed: 2
-  decayAmountPerFixedTime: 0.2
-  maxDecayForLevelOne: 0.23
-  maxDecayForLevelTwo: 0.27
-  maxDecayForLevelThree: 0.33
-  maxDecayForLevelFour: 1
-  levelOneDecayIncrease: 0.02
-  levelTwoDecayIncrease: 0.022
-  levelThreeDecayIncrease: 0.024
-  levelFourDecayIncrease: 0.026
+  swordAnimator: {fileID: 1976022272843342914}
   spawner: {fileID: 0}
+  weaponLevel: 1
+  maxDecayProtectionDuration: 4
+  decayProtectionDecrementRate: 2
+  currentDecayPerFixedTime: 0.2
+  initialDecayPerFixedTime: 0.2
+  decayIncreasePerFixedTime: 0.04
+  firstUpgradeThreshold: 50
+  secondUpgradeThreshold: 200
+  thirdUpgradeThreshold: 350
 --- !u!82 &-9206305234511002271
 AudioSource:
   m_ObjectHideFlags: 0
