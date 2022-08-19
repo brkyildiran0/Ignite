@@ -1,3 +1,3 @@
-# ScoreSpace-Jam-20
+Ignite
 
 https://radio-man.itch.io/ignite
